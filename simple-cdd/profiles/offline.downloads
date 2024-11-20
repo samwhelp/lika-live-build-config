@@ -6,8 +6,8 @@ hyperv-daemons
 open-vm-tools
 open-vm-tools-desktop
 qemu-guest-agent
-virtualbox-guest-utils
-virtualbox-guest-x11
+#virtualbox-guest-utils
+#virtualbox-guest-x11
 xauth
 xserver-xorg-video-vmware
 # Add packages required for speech synthesis (installed by
