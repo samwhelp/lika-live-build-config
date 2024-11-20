@@ -13,7 +13,7 @@ lika-desktop-live
 #lika-linux-everything
 
 # Graphical desktop
-lika-desktop-xfce
+#lika-desktop-xfce
 
 # Lika applications
 #<package>

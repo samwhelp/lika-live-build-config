@@ -7,10 +7,10 @@
 # You can customize the set of Lika metapackages (groups of tools) available
 # in the installer ISO.
 # For the complete list see: https://tools.lika.org/lika-metapackages
-lika-linux-firmware
-lika-linux-core
-lika-tools-top10
-lika-linux-default
+#lika-linux-firmware
+#lika-linux-core
+#lika-tools-top10
+#lika-linux-default
 
 # NOTE: We would like to provide lika-linux-large in our installer images
 # but we end up with ISO images that are too big for our CDN. So disable
@@ -18,6 +18,6 @@ lika-linux-default
 # lika-linux-large
 
 # Graphical desktops
-lika-desktop-xfce
-lika-desktop-gnome
-lika-desktop-kde
+#lika-desktop-xfce
+#lika-desktop-gnome
+#lika-desktop-kde

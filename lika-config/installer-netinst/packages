@@ -6,4 +6,4 @@
 
 # We still put lika-linux-firmware because we want firmware to be
 # in the ISO for use by the installer
-lika-linux-firmware
+#lika-linux-firmware

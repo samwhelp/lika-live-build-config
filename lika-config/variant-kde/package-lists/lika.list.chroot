@@ -13,7 +13,7 @@ lika-linux-default
 #lika-linux-everything
 
 # Graphical desktop
-lika-desktop-kde
+#lika-desktop-kde
 
 # Lika applications
 #<package>
