@@ -1,19 +1,19 @@
 # Live image
 # You always want these:
-lika-linux-core
-lika-desktop-live
+#lika-linux-core
+#lika-desktop-live
 
 # Metapackages
 # You can customize the set of Lika metapackages (groups of tools) to install
 # For the complete list see: https://tools.lika.org/lika-metapackages
 #lika-linux-core
 #lika-tools-top10
-lika-linux-default
+#lika-linux-default
 #lika-linux-large
 #lika-linux-everything
 
 # Graphical desktop
-lika-desktop-mate
+#lika-desktop-mate
 # | NOTE: With Lika 1.x, the mate desktop requires other changes to the live config.
 # | See ~ https://web.archive.org/web/20150721230745/http://docs.lika.org/live-build/customize-the-lika-desktop-environment
 #if DISTRIBUTION moto
