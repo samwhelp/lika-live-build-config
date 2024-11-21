@@ -6,14 +6,14 @@ set -o pipefail # Bashism
 # You can put a local mirror here if you want (or you can set
 # it in .mirror)
 if [ -e .mirror ]; then
-    lika_mirror=$(cat .mirror)
+    master_mirror=$(cat .mirror)
 else
-    lika_mirror=http://deb.debian.org/debian
+    master_mirror=http://deb.debian.org/debian
 fi
 
 ### DO NOT EDIT THE REST OF THIS FILE ###
 
-public_lika_mirror=http://deb.debian.org/debian
+public_master_mirror=http://deb.debian.org/debian
 
 # Detect target architecture and filter args
 temp=""
@@ -55,7 +55,7 @@ done
 eval set -- "$temp"
 
 # Resolve release name
-dist=$(wget -q -O- $lika_mirror/dists/$dist/Release | awk '/^Codename:/ {print $2}')
+dist=$(wget -q -O- ${master_mirror}/dists/$dist/Release | awk '/^Codename:/ {print $2}')
 if [ -z "$dist" ]; then
 	echo "ERROR: Build release could not be resolved"
 	exit 1
@@ -117,9 +117,9 @@ cp -rT master-config/common config
 
 if [ -n "$enable_pu" ]; then
 	mkdir -p config/archives
-	echo "deb $lika_mirror $dist-proposed-updates main contrib non-free non-free-firmware" \
+	echo "deb ${master_mirror} $dist-proposed-updates main contrib non-free non-free-firmware" \
 		> config/archives/lika-proposed-updates.list.chroot
-	echo "deb $public_lika_mirror $dist-proposed-updates main contrib non-free non-free-firmware" \
+	echo "deb ${public_master_mirror} $dist-proposed-updates main contrib non-free non-free-firmware" \
 		> config/archives/lika-proposed-updates.list.binary
 fi
 
@@ -138,9 +138,9 @@ fi
 # 	--source false \
 # 	--firmware-binary true \
 # 	--firmware-chroot true \
-# 	--mirror-bootstrap "$lika_mirror" \
-# 	--mirror-debian-installer "$lika_mirror" \
-# 	--mirror-binary "$public_lika_mirror" \
+# 	--mirror-bootstrap "${master_mirror}" \
+# 	--mirror-debian-installer "${master_mirror}" \
+# 	--mirror-binary "${public_master_mirror}" \
 # 	--iso-application "Lika-Linux" \
 # 	--iso-publisher "Lika" \
 # 	--iso-volume "Lika-Live" \
@@ -169,9 +169,9 @@ lb config noauto \
 	--source false \
 	--firmware-binary true \
 	--firmware-chroot true \
-	--mirror-bootstrap "$lika_mirror" \
-	--mirror-debian-installer "$lika_mirror" \
-	--mirror-binary "$public_lika_mirror" \
+	--mirror-bootstrap "${master_mirror}" \
+	--mirror-debian-installer "${master_mirror}" \
+	--mirror-binary "${public_master_mirror}" \
 	--iso-application "Lika-Linux" \
 	--iso-publisher "Lika" \
 	--iso-volume "Lika-Live" \
