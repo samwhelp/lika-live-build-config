@@ -65,15 +65,15 @@ target_image_name () {
 	fi
 	if [ "${IMAGE_TYPE}" = "live" ]; then
 		if [ "${MASTER_VARIANT}" = "default" ]; then
-			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}${MASTER_NAME}-linux-${MASTER_VERSION}-live-${MASTER_ARCH}.$IMAGE_EXT"
+			echo "${TARGET_SUBDIR:+${TARGET_SUBDIR}/}${MASTER_NAME}-linux-${MASTER_VERSION}-live-${MASTER_ARCH}.$IMAGE_EXT"
 		else
-			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}${MASTER_NAME}-linux-${MASTER_VERSION}-live-${MASTER_VARIANT}-${MASTER_ARCH}.$IMAGE_EXT"
+			echo "${TARGET_SUBDIR:+${TARGET_SUBDIR}/}${MASTER_NAME}-linux-${MASTER_VERSION}-live-${MASTER_VARIANT}-${MASTER_ARCH}.$IMAGE_EXT"
 		fi
 	else
 		if [ "${MASTER_VARIANT}" = "default" ]; then
-			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}${MASTER_NAME}-linux-${MASTER_VERSION}-installer-${MASTER_ARCH}.$IMAGE_EXT"
+			echo "${TARGET_SUBDIR:+${TARGET_SUBDIR}/}${MASTER_NAME}-linux-${MASTER_VERSION}-installer-${MASTER_ARCH}.$IMAGE_EXT"
 		else
-			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}${MASTER_NAME}-linux-${MASTER_VERSION}-installer-${MASTER_VARIANT}-${MASTER_ARCH}.$IMAGE_EXT"
+			echo "${TARGET_SUBDIR:+${TARGET_SUBDIR}/}${MASTER_NAME}-linux-${MASTER_VERSION}-installer-${MASTER_VARIANT}-${MASTER_ARCH}.$IMAGE_EXT"
 		fi
 	fi
 }
@@ -300,7 +300,7 @@ if [ "$ACTION" = "clean" ]; then
 fi
 
 cd $(dirname ${0})
-mkdir -p ${TARGET_DIR}/$TARGET_SUBDIR
+mkdir -p ${TARGET_DIR}/${TARGET_SUBDIR}
 
 # Don't quit on any errors now
 set +e
