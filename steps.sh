@@ -60,7 +60,7 @@ target_image_name() {
 
 	IMAGE_NAME="$(image_name $arch)"
 	IMAGE_EXT="${IMAGE_NAME##*.}"
-	if [ "$IMAGE_EXT" = "$IMAGE_NAME" ]; then
+	if [ "$IMAGE_EXT" = "${IMAGE_NAME}" ]; then
 		IMAGE_EXT="img"
 	fi
 	if [ "$IMAGE_TYPE" = "live" ]; then
@@ -282,7 +282,7 @@ fi
 debug "SUDO: $SUDO"
 
 IMAGE_NAME="$(image_name ${MASTER_ARCH})"
-debug "IMAGE_NAME: $IMAGE_NAME"
+debug "IMAGE_NAME: ${IMAGE_NAME}"
 
 debug "ACTION: $ACTION"
 if [ "$ACTION" = "get-image-path" ]; then
@@ -311,7 +311,7 @@ case "$IMAGE_TYPE" in
 
 		debug "Stage 2/2 - Build"
 		run_and_log $SUDO lb build
-		if [ $? -ne 0 ] || [ ! -e $IMAGE_NAME ]; then
+		if [ $? -ne 0 ] || [ ! -e ${IMAGE_NAME} ]; then
 			failure
 		fi
 	;;
@@ -401,7 +401,7 @@ case "$IMAGE_TYPE" in
 			--auto-profiles "$auto_profiles"
 		res=$?
 		cd ../
-		if [ $res -ne 0 ] || [ ! -e $IMAGE_NAME ]; then
+		if [ $res -ne 0 ] || [ ! -e ${IMAGE_NAME} ]; then
 			failure
 		fi
 	;;
@@ -411,7 +411,7 @@ esac
 set -e
 
 debug "Moving files"
-run_and_log mv -f $IMAGE_NAME $TARGET_DIR/$(target_image_name ${MASTER_ARCH})
+run_and_log mv -f ${IMAGE_NAME} $TARGET_DIR/$(target_image_name ${MASTER_ARCH})
 run_and_log mv -f "$BUILD_LOG" $TARGET_DIR/$(target_build_log ${MASTER_ARCH})
 
 run_and_log echo -e "\n***\nGENERATED FINAL IMAGE: $TARGET_DIR/$(target_image_name ${MASTER_ARCH})\n***"
