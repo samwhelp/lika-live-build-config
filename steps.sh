@@ -352,10 +352,10 @@ case "${IMAGE_TYPE}" in
 		else
 			master_mirror=http://deb.debian.org/debian/
 		fi
-		if ! echo "$master_mirror" | grep -q '/$'; then
-			master_mirror="$master_mirror/"
+		if ! echo "${master_mirror}" | grep -q '/$'; then
+			master_mirror="${master_mirror}/"
 		fi
-		debug "master_mirror: $master_mirror"
+		debug "master_mirror: ${master_mirror}"
 
 		debug "Stage 1/2 - File(s)"
 		# Setup custom debian-cd to make our changes
@@ -398,7 +398,7 @@ case "${IMAGE_TYPE}" in
 			--force-root \
 			--conf simple-cdd.conf \
 			--dist ${CODENAME} \
-			--debian-mirror $master_mirror \
+			--debian-mirror ${master_mirror} \
 			--profiles "${profiles}" \
 			--auto-profiles "${auto_profiles}"
 		res=$?
