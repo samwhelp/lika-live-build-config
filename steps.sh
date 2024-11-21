@@ -407,7 +407,9 @@ case "$IMAGE_TYPE" in
 	;;
 esac
 
-# If a command fails, make the whole script exit
+##
+## > If a command fails, make the whole script exit
+##
 set -e
 
 debug "Moving files"
