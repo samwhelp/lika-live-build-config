@@ -231,10 +231,10 @@ fi
 MASTER_CONFIG_OPTS="--distribution ${MASTER_DIST} -- --variant ${MASTER_VARIANT}"
 CODENAME=${MASTER_DIST} # for simple-cdd/debian-cd
 if [ -n "${OPT_pu}" ]; then
-	MASTER_CONFIG_OPTS="$MASTER_CONFIG_OPTS --proposed-updates"
+	MASTER_CONFIG_OPTS="${MASTER_CONFIG_OPTS} --proposed-updates"
 	MASTER_DIST="${MASTER_DIST}+pu"
 fi
-debug "MASTER_CONFIG_OPTS: $MASTER_CONFIG_OPTS"
+debug "MASTER_CONFIG_OPTS: ${MASTER_CONFIG_OPTS}"
 debug "CODENAME: ${CODENAME}"
 debug "MASTER_DIST: ${MASTER_DIST}"
 
@@ -308,7 +308,7 @@ set +e
 case "${IMAGE_TYPE}" in
 	live)
 		debug "Stage 1/2 - Config"
-		run_and_log lb config -a ${MASTER_ARCH} $MASTER_CONFIG_OPTS "$@"
+		run_and_log lb config -a ${MASTER_ARCH} ${MASTER_CONFIG_OPTS} "$@"
 		[ $? -eq 0 ] || failure
 
 		debug "Stage 2/2 - Build"
