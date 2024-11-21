@@ -202,7 +202,9 @@ while true; do
 	esac
 done
 
-# Set default values
+##
+## > Set default values
+##
 MASTER_ARCH=${MASTER_ARCH:-$HOST_ARCH}
 if [ "${MASTER_ARCH}" = "x64" ]; then
 	MASTER_ARCH="amd64"
