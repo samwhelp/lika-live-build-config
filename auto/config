@@ -55,20 +55,20 @@ done
 eval set -- "${temp}"
 
 # Resolve release name
-dist=$(wget -q -O- ${master_mirror}/dists/$dist/Release | awk '/^Codename:/ {print ${2}}')
-if [ -z "$dist" ]; then
+dist=$(wget -q -O- ${master_mirror}/dists/${dist}/Release | awk '/^Codename:/ {print ${2}}')
+if [ -z "${dist}" ]; then
 	echo "ERROR: Build release could not be resolved"
 	exit 1
 fi
 
 # live-build doesn't work if --parent-debian-distribution is unknown of
 # debian-cd => we have to put a symlink so that it deals with lika like sid
-if [ ! -e ${LIVE_BUILD:-/usr/share/live/build}/data/debian-cd/$dist ]; then
+if [ ! -e ${LIVE_BUILD:-/usr/share/live/build}/data/debian-cd/${dist} ]; then
 	if [ -w ${LIVE_BUILD:-/usr/share/live/build}/data/debian-cd ]; then
-		ln -sf sid ${LIVE_BUILD:-/usr/share/live/build}/data/debian-cd/$dist
+		ln -sf sid ${LIVE_BUILD:-/usr/share/live/build}/data/debian-cd/${dist}
 	else
 		echo "ERROR: Run this first:"
-		echo "ln -sf sid ${LIVE_BUILD:-/usr/share/live/build}/data/debian-cd/$dist"
+		echo "ln -sf sid ${LIVE_BUILD:-/usr/share/live/build}/data/debian-cd/${dist}"
 		exit 1
 	fi
 fi
@@ -93,7 +93,7 @@ case "$arch" in
 esac
 
 # Define options that vary across distributions
-case "$dist" in
+case "${dist}" in
     lika-last-snapshot)
 	# We don't want lika-last-snapshot to end up in the image, it
 	# should be replaced with bookworm
@@ -117,9 +117,9 @@ cp -rT master-config/common config
 
 if [ -n "$enable_pu" ]; then
 	mkdir -p config/archives
-	echo "deb ${master_mirror} $dist-proposed-updates main contrib non-free non-free-firmware" \
+	echo "deb ${master_mirror} ${dist}-proposed-updates main contrib non-free non-free-firmware" \
 		> config/archives/lika-proposed-updates.list.chroot
-	echo "deb ${public_master_mirror} $dist-proposed-updates main contrib non-free non-free-firmware" \
+	echo "deb ${public_master_mirror} ${dist}-proposed-updates main contrib non-free non-free-firmware" \
 		> config/archives/lika-proposed-updates.list.binary
 fi
 
@@ -128,8 +128,8 @@ fi
 
 # lb config noauto \
 # 	--apt-indices=false \
-# 	--distribution "$dist" \
-# 	--debian-installer-distribution "$dist" \
+# 	--distribution "${dist}" \
+# 	--debian-installer-distribution "${dist}" \
 # 	--archive-areas "main contrib non-free non-free-firmware" \
 # 	--debootstrap-options "--keyring=/usr/share/keyrings/debian-archive-keyring.gpg" \
 # 	--keyring-packages debian-archive-keyring \
@@ -159,8 +159,8 @@ fi
 
 lb config noauto \
 	--apt-indices=false \
-	--distribution "$dist" \
-	--debian-installer-distribution "$dist" \
+	--distribution "${dist}" \
+	--debian-installer-distribution "${dist}" \
 	--archive-areas "main contrib non-free non-free-firmware" \
 	--debootstrap-options "--keyring=/usr/share/keyrings/debian-archive-keyring.gpg" \
 	--keyring-packages debian-archive-keyring \
