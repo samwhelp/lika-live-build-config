@@ -24,17 +24,17 @@ while [ $# -gt 0 ]; do
    	arg="$1"
 	case "$arg" in
         -a|--arch|--architecture|--architectures)
-		arch="$2"
+		arch="${2}"
 		temp="$temp "'"'"$arg"'"'
-		temp="$temp "'"'"$2"'"'
+		temp="$temp "'"'"${2}"'"'
 		shift
 		;;
 	--distribution)
-		dist="$2"
+		dist="${2}"
 		shift
 		;;
 	--variant)
-		variant="$2"
+		variant="${2}"
 		shift
 		;;
 	-p|--proposed-updates)
@@ -55,7 +55,7 @@ done
 eval set -- "$temp"
 
 # Resolve release name
-dist=$(wget -q -O- ${master_mirror}/dists/$dist/Release | awk '/^Codename:/ {print $2}')
+dist=$(wget -q -O- ${master_mirror}/dists/$dist/Release | awk '/^Codename:/ {print ${2}}')
 if [ -z "$dist" ]; then
 	echo "ERROR: Build release could not be resolved"
 	exit 1
