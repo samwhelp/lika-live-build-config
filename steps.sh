@@ -1,11 +1,19 @@
 #!/bin/bash
 
-# If a command fails, make the whole script exit
+##
+## > If a command fails, make the whole script exit
+##
 set -e
-# Use return code for any command errors in part of a pipe
+
+##
+## > Use return code for any command errors in part of a pipe
+##
 set -o pipefail # Bashism
 
-# Lika's default values
+##
+## ## Default Values
+##
+MASTER_NAME=""
 MASTER_DIST="bookworm"
 MASTER_VERSION=""
 MASTER_VARIANT="default"
