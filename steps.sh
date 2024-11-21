@@ -26,7 +26,7 @@ DEBUG=""
 HOST_ARCH=$(dpkg --print-architecture)
 
 image_name() {
-	case "$IMAGE_TYPE" in
+	case "${IMAGE_TYPE}" in
 		live)
 			live_image_name
 		;;
@@ -63,7 +63,7 @@ target_image_name() {
 	if [ "$IMAGE_EXT" = "${IMAGE_NAME}" ]; then
 		IMAGE_EXT="img"
 	fi
-	if [ "$IMAGE_TYPE" = "live" ]; then
+	if [ "${IMAGE_TYPE}" = "live" ]; then
 		if [ "${MASTER_VARIANT}" = "default" ]; then
 			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}${MASTER_NAME}-linux-${MASTER_VERSION}-live-${MASTER_ARCH}.$IMAGE_EXT"
 		else
@@ -95,7 +95,7 @@ default_version() {
 }
 
 failure() {
-	echo "Build of ${MASTER_DIST}/${MASTER_VARIANT}/${MASTER_ARCH} $IMAGE_TYPE image failed (see build.log for details)" >&2
+	echo "Build of ${MASTER_DIST}/${MASTER_VARIANT}/${MASTER_ARCH} ${IMAGE_TYPE} image failed (see build.log for details)" >&2
 	echo "Log: ${BUILD_LOG}" >&2
 	exit 2
 }
@@ -216,7 +216,7 @@ debug "MASTER_VERSION: ${MASTER_VERSION}"
 
 # Check parameters
 debug "HOST_ARCH: ${HOST_ARCH}"
-if [ "${HOST_ARCH}" != "${MASTER_ARCH}" ] && [ "$IMAGE_TYPE" != "installer" ]; then
+if [ "${HOST_ARCH}" != "${MASTER_ARCH}" ] && [ "${IMAGE_TYPE}" != "installer" ]; then
 	case "${HOST_ARCH}/${MASTER_ARCH}" in
 		amd64/i386|i386/amd64)
 		;;
@@ -250,8 +250,8 @@ else
 	echo "ERROR: Non Debian-based OS" >&2
 fi
 
-debug "IMAGE_TYPE: $IMAGE_TYPE"
-case "$IMAGE_TYPE" in
+debug "IMAGE_TYPE: ${IMAGE_TYPE}"
+case "${IMAGE_TYPE}" in
 	live)
 		if [ ! -d "$(dirname ${0})/lika-config/variant-${MASTER_VARIANT}" ]; then
 			echo "ERROR: Unknown variant of Lika live configuration: ${MASTER_VARIANT}" >&2
@@ -267,7 +267,7 @@ case "$IMAGE_TYPE" in
 		require_package simple-cdd "0.6.9"
 	;;
 	*)
-		echo "ERROR: Unsupported IMAGE_TYPE selected ($IMAGE_TYPE)" >&2
+		echo "ERROR: Unsupported IMAGE_TYPE selected (${IMAGE_TYPE})" >&2
 		exit 1
 	;;
 esac
@@ -305,7 +305,7 @@ mkdir -p ${TARGET_DIR}/$TARGET_SUBDIR
 # Don't quit on any errors now
 set +e
 
-case "$IMAGE_TYPE" in
+case "${IMAGE_TYPE}" in
 	live)
 		debug "Stage 1/2 - Config"
 		run_and_log lb config -a ${MASTER_ARCH} $MASTER_CONFIG_OPTS "$@"
