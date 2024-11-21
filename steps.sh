@@ -177,7 +177,7 @@ debug "BUILD_LOG: ${BUILD_LOG}"
 ## > Parsing command line options (see .getopt.sh)
 ##
 temp=$(getopt -o "${BUILD_OPTS_SHORT}" -l "${BUILD_OPTS_LONG},get-image-path" -- "$@")
-eval set -- "$temp"
+eval set -- "${temp}"
 while true; do
 	case "${1}" in
 		-d|--distribution) MASTER_DIST="${2}"; shift 2; ;;
