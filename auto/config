@@ -107,7 +107,7 @@ esac
 # Drop all files that a former run might have put into place
 for file in $(cd master-config && find ./common ./variant-* -type f); do
     file=${file#./*/}
-    rm -fv config/$file
+    rm -fv config/${file}
 done
 rm -fv config/archives/${dist}-proposed-updates.list.*
 
