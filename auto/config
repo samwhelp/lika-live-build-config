@@ -25,8 +25,8 @@ while [ $# -gt 0 ]; do
 	case "$arg" in
         -a|--arch|--architecture|--architectures)
 		arch="${2}"
-		temp="$temp "'"'"$arg"'"'
-		temp="$temp "'"'"${2}"'"'
+		temp="${temp} "'"'"$arg"'"'
+		temp="${temp} "'"'"${2}"'"'
 		shift
 		;;
 	--distribution)
@@ -47,12 +47,12 @@ while [ $# -gt 0 ]; do
 		# are intended for lb config !
 		;;
 	*)
-		temp="$temp "'"'"$arg"'"'
+		temp="${temp} "'"'"$arg"'"'
 		;;
 	esac
 	shift
 done
-eval set -- "$temp"
+eval set -- "${temp}"
 
 # Resolve release name
 dist=$(wget -q -O- ${master_mirror}/dists/$dist/Release | awk '/^Codename:/ {print ${2}}')
