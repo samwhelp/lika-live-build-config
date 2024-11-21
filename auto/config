@@ -22,10 +22,10 @@ dist="bookworm"
 lb_opts=""
 while [ $# -gt 0 ]; do
    	arg="${1}"
-	case "$arg" in
+	case "${arg}" in
         -a|--arch|--architecture|--architectures)
 		arch="${2}"
-		temp="${temp} "'"'"$arg"'"'
+		temp="${temp} "'"'"${arg}"'"'
 		temp="${temp} "'"'"${2}"'"'
 		shift
 		;;
@@ -47,7 +47,7 @@ while [ $# -gt 0 ]; do
 		# are intended for lb config !
 		;;
 	*)
-		temp="${temp} "'"'"$arg"'"'
+		temp="${temp} "'"'"${arg}"'"'
 		;;
 	esac
 	shift
