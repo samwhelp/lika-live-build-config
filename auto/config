@@ -6,9 +6,9 @@ set -o pipefail # Bashism
 # You can put a local mirror here if you want (or you can set
 # it in .mirror)
 if [ -e .mirror ]; then
-    master_mirror=$(cat .mirror)
+	master_mirror=$(cat .mirror)
 else
-    master_mirror="http://deb.debian.org/debian"
+	master_mirror="http://deb.debian.org/debian"
 fi
 
 ### DO NOT EDIT THE REST OF THIS FILE ###
@@ -23,7 +23,7 @@ lb_opts=""
 while [ $# -gt 0 ]; do
    	arg="${1}"
 	case "${arg}" in
-        -a|--arch|--architecture|--architectures)
+		-a|--arch|--architecture|--architectures)
 		arch="${2}"
 		temp="${temp} "'"'"${arg}"'"'
 		temp="${temp} "'"'"${2}"'"'
@@ -75,39 +75,39 @@ fi
 
 # Define options that vary across architectures
 case "${arch}" in
-    amd64)
+	amd64)
 	lb_opts="${lb_opts} --debian-installer live"
-    ;;
-    i386)
+	;;
+	i386)
 	lb_opts="${lb_opts} --debian-installer live --linux-flavours 686-pae"
-    ;;
-    arm64)
+	;;
+	arm64)
 	lb_opts="${lb_opts} --bootloaders grub-efi --uefi-secure-boot disable"
-    ;;
-    armel|armhf)
+	;;
+	armel|armhf)
 	lb_opts="${lb_opts} --binary-images hdd --binary-filesystem ext4 --chroot-filesystem none"
-    ;;
-    *)
+	;;
+	*)
 	echo "WARNING: configuration not tested on arch ${arch}" >&2
-    ;;
+	;;
 esac
 
 # Define options that vary across distributions
 case "${dist}" in
-    lika-last-snapshot)
+	lika-last-snapshot)
 	# We don't want lika-last-snapshot to end up in the image, it
 	# should be replaced with bookworm
 	lb_opts="${lb_opts} --distribution-binary bookworm"
 	lb_opts="${lb_opts} --debootstrap-script /usr/share/debootstrap/scripts/bookworm"
-    ;;
+	;;
 esac
 
 # Setup configuration files from variant and options
 
 # Drop all files that a former run might have put into place
 for file in $(cd master-config && find ./common ./variant-* -type f); do
-    file=${file#./*/}
-    rm -fv config/${file}
+	file=${file#./*/}
+	rm -fv config/${file}
 done
 rm -fv config/archives/${dist}-proposed-updates.list.*
 
