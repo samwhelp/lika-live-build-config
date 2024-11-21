@@ -345,7 +345,7 @@ case "${IMAGE_TYPE}" in
 		debug "DISKTYPE: ${DISKTYPE}"
 		debug "profiles: ${profiles}"
 		debug "auto_profiles: ${auto_profiles}"
-		[ -v KERNEL_PARAMS ] && debug "KERNEL_PARAMS: $KERNEL_PARAMS"
+		[ -v KERNEL_PARAMS ] && debug "KERNEL_PARAMS: ${KERNEL_PARAMS}"
 
 		if [ -e .mirror ]; then
 			master_mirror=$(cat .mirror)
