@@ -401,7 +401,7 @@ case "$IMAGE_TYPE" in
 			--auto-profiles "$auto_profiles"
 		res=$?
 		cd ../
-		if [ $res -ne 0 ] || [ ! -e ${IMAGE_NAME} ]; then
+		if [ ${res} -ne 0 ] || [ ! -e ${IMAGE_NAME} ]; then
 			failure
 		fi
 	;;
