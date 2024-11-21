@@ -25,7 +25,7 @@ VERBOSE=""
 DEBUG=""
 HOST_ARCH=$(dpkg --print-architecture)
 
-image_name() {
+image_name () {
 	case "${IMAGE_TYPE}" in
 		live)
 			live_image_name
@@ -36,7 +36,7 @@ image_name() {
 	esac
 }
 
-live_image_name() {
+live_image_name () {
 	case "${MASTER_ARCH}" in
 		i386|amd64|arm64)
 			echo "live-image-${MASTER_ARCH}.hybrid.iso"
@@ -47,7 +47,7 @@ live_image_name() {
 	esac
 }
 
-installer_image_name() {
+installer_image_name () {
 	if [ "${MASTER_VARIANT}" = "netinst" ]; then
 		echo "simple-cdd/images/lika-${MASTER_VERSION}-${MASTER_ARCH}-NETINST-1.iso"
 	else
@@ -55,7 +55,7 @@ installer_image_name() {
 	fi
 }
 
-target_image_name() {
+target_image_name () {
 	local arch=${1}
 
 	IMAGE_NAME="$(image_name $arch)"
@@ -78,12 +78,12 @@ target_image_name() {
 	fi
 }
 
-target_build_log() {
+target_build_log () {
 	TARGET_IMAGE_NAME=$(target_image_name ${1})
 	echo ${TARGET_IMAGE_NAME%.*}.log
 }
 
-default_version() {
+default_version () {
 	case "${1}" in
 		lika-*)
 			echo "${1#lika-}"
@@ -94,13 +94,13 @@ default_version() {
 	esac
 }
 
-failure() {
+failure () {
 	echo "Build of ${MASTER_DIST}/${MASTER_VARIANT}/${MASTER_ARCH} ${IMAGE_TYPE} image failed (see build.log for details)" >&2
 	echo "Log: ${BUILD_LOG}" >&2
 	exit 2
 }
 
-run_and_log() {
+run_and_log () {
 	if [ -n "$VERBOSE" ] || [ -n "$DEBUG" ]; then
 		printf "RUNNING:" >&2
 		for _ in "$@"; do
@@ -114,13 +114,13 @@ run_and_log() {
 	return $?
 }
 
-debug() {
+debug () {
 	if [ -n "$DEBUG" ]; then
 		echo "DEBUG: $*" >&2
 	fi
 }
 
-clean() {
+clean () {
 	debug "Cleaning"
 
 	# Live
@@ -136,7 +136,7 @@ clean() {
 	run_and_log $SUDO rm -rf "$(pwd)/simple-cdd/debian-cd"
 }
 
-print_help() {
+print_help () {
 	echo "Usage: ${0} [<option>...]"
 	echo
 	for x in $(echo "${BUILD_OPTS_LONG}" | sed 's_,_ _g'); do
@@ -148,7 +148,7 @@ print_help() {
 	exit 0
 }
 
-require_package() {
+require_package () {
 	local pkg=${1}
 	local required_version=${2}
 	local pkg_version=""
