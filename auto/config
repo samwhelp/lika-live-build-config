@@ -76,16 +76,16 @@ fi
 # Define options that vary across architectures
 case "${arch}" in
     amd64)
-	lb_opts="$lb_opts --debian-installer live"
+	lb_opts="${lb_opts} --debian-installer live"
     ;;
     i386)
-	lb_opts="$lb_opts --debian-installer live --linux-flavours 686-pae"
+	lb_opts="${lb_opts} --debian-installer live --linux-flavours 686-pae"
     ;;
     arm64)
-	lb_opts="$lb_opts --bootloaders grub-efi --uefi-secure-boot disable"
+	lb_opts="${lb_opts} --bootloaders grub-efi --uefi-secure-boot disable"
     ;;
     armel|armhf)
-	lb_opts="$lb_opts --binary-images hdd --binary-filesystem ext4 --chroot-filesystem none"
+	lb_opts="${lb_opts} --binary-images hdd --binary-filesystem ext4 --chroot-filesystem none"
     ;;
     *)
 	echo "WARNING: configuration not tested on arch ${arch}" >&2
@@ -97,8 +97,8 @@ case "${dist}" in
     lika-last-snapshot)
 	# We don't want lika-last-snapshot to end up in the image, it
 	# should be replaced with bookworm
-	lb_opts="$lb_opts --distribution-binary bookworm"
-	lb_opts="$lb_opts --debootstrap-script /usr/share/debootstrap/scripts/bookworm"
+	lb_opts="${lb_opts} --distribution-binary bookworm"
+	lb_opts="${lb_opts} --debootstrap-script /usr/share/debootstrap/scripts/bookworm"
     ;;
 esac
 
@@ -151,7 +151,7 @@ fi
 # 	--bootappend-install "net.ifnames=0" \
 # 	--security false \
 # 	--win32-loader false \
-# 	$lb_opts \
+# 	${lb_opts} \
 # 	"$@"
 
 
@@ -182,5 +182,5 @@ lb config noauto \
 	--bootappend-install "net.ifnames=0" \
 	--security false \
 	--win32-loader false \
-	$lb_opts \
+	${lb_opts} \
 	"$@"
