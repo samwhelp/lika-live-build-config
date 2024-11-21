@@ -366,7 +366,7 @@ case "${IMAGE_TYPE}" in
 		if [ -e .mirror ]; then
 			master_mirror=$(cat .mirror)
 		else
-			master_mirror=http://deb.debian.org/debian/
+			master_mirror="http://deb.debian.org/debian"
 		fi
 		if ! echo "${master_mirror}" | grep -q '/$'; then
 			master_mirror="${master_mirror}/"
