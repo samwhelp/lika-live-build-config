@@ -13,7 +13,7 @@ set -o pipefail # Bashism
 ##
 ## ## Default Values
 ##
-MASTER_NAME=""
+MASTER_NAME="lika"
 MASTER_DIST="bookworm"
 MASTER_VERSION=""
 MASTER_VARIANT="default"
