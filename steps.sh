@@ -158,8 +158,8 @@ require_package() {
 		echo "ERROR: You need ${pkg}, but it is not installed" >&2
 		exit 1
 	fi
-	if dpkg --compare-versions "${pkg_version}" lt "$required_version"; then
-		echo "ERROR: You need ${pkg} (>= $required_version), you have ${pkg_version}" >&2
+	if dpkg --compare-versions "${pkg_version}" lt "${required_version}"; then
+		echo "ERROR: You need ${pkg} (>= ${required_version}), you have ${pkg_version}" >&2
 		exit 1
 	fi
 	debug "${pkg} version: ${pkg_version}"
