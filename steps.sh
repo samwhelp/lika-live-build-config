@@ -233,7 +233,9 @@ if [ "${HOST_ARCH}" != "${MASTER_ARCH}" ] && [ "${IMAGE_TYPE}" != "installer" ];
 	esac
 fi
 
-# Build parameters for lb config
+##
+## > Build parameters for lb config
+##
 MASTER_CONFIG_OPTS="--distribution ${MASTER_DIST} -- --variant ${MASTER_VARIANT}"
 CODENAME=${MASTER_DIST} # for simple-cdd/debian-cd
 if [ -n "${OPT_pu}" ]; then
@@ -244,7 +246,9 @@ debug "MASTER_CONFIG_OPTS: ${MASTER_CONFIG_OPTS}"
 debug "CODENAME: ${CODENAME}"
 debug "MASTER_DIST: ${MASTER_DIST}"
 
-# Set sane PATH (cron seems to lack /sbin/ dirs)
+##
+## > Set sane PATH (cron seems to lack /sbin/ dirs)
+##
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 debug "PATH: $PATH"
 
@@ -278,7 +282,9 @@ case "${IMAGE_TYPE}" in
 	;;
 esac
 
-# We need root rights at some point
+##
+## > We need root rights at some point
+##
 if [ "$(whoami)" != "root" ]; then
 	if ! which ${SUDO} >/dev/null; then
 		echo "ERROR: ${0} is not run as root and ${SUDO} is not available" >&2
@@ -308,7 +314,9 @@ fi
 cd $(dirname ${0})
 mkdir -p ${TARGET_DIR}/${TARGET_SUBDIR}
 
-# Don't quit on any errors now
+##
+## > Don't quit on any errors now
+##
 set +e
 
 case "${IMAGE_TYPE}" in
@@ -324,7 +332,9 @@ case "${IMAGE_TYPE}" in
 		fi
 	;;
 	installer)
-		# Override some debian-cd environment variables
+		##
+		## > Override some debian-cd environment variables
+		##
 		export BASEDIR="$(pwd)/simple-cdd/debian-cd"
 		export ARCHES=${MASTER_ARCH}
 		export ARCH=${MASTER_ARCH}
@@ -364,38 +374,51 @@ case "${IMAGE_TYPE}" in
 		debug "master_mirror: ${master_mirror}"
 
 		debug "Stage 1/2 - File(s)"
-		# Setup custom debian-cd to make our changes
+		##
+		## > Setup custom debian-cd to make our changes
+		##
 		cp -aT /usr/share/debian-cd simple-cdd/debian-cd
 		[ $? -eq 0 ] || failure
 
-		# Use the same grub theme as in the live images
-		# Until debian-cd is smart enough: http://bugs.debian.org/1003927
+		##
+		## > Use the same grub theme as in the live images
+		## > Until debian-cd is smart enough: http://bugs.debian.org/1003927
+		##
 		cp -f lika-config/common/bootloaders/grub-pc/grub-theme.in simple-cdd/debian-cd/data/${CODENAME}/grub-theme.in
 
-		# Keep 686-pae udebs as we changed the default from 686
-		# to 686-pae in the debian-installer images
+		##
+		## > Keep 686-pae udebs as we changed the default from 686
+		## > to 686-pae in the debian-installer images
+		##
 		sed -i -e '/686-pae/d' \
 			simple-cdd/debian-cd/data/${CODENAME}/exclude-udebs-i386
 		[ $? -eq 0 ] || failure
 
-		# Configure the lika profile with the packages we want
+		##
+		## > Configure the lika profile with the packages we want
+		##
 		grep -v '^#' lika-config/installer-${MASTER_VARIANT}/packages \
 			> simple-cdd/profiles/lika.downloads
 		[ $? -eq 0 ] || failure
 
-		# Tasksel is required in the mirror for debian-cd
+		##
+		## > Tasksel is required in the mirror for debian-cd
+		##
 		echo tasksel >> simple-cdd/profiles/lika.downloads
 		[ $? -eq 0 ] || failure
 
-		# Grub is the only supported bootloader on arm64
-		# so ensure it's on the iso for arm64.
+		##
+		## > Grub is the only supported bootloader on arm64
+		## > so ensure it's on the iso for arm64.
 		if [ "${MASTER_ARCH}" = "arm64" ]; then
 			debug "arm64 GRUB"
 			echo "grub-efi-arm64" >> simple-cdd/profiles/lika.downloads
 			[ $? -eq 0 ] || failure
 		fi
 
-		# Run simple-cdd
+		##
+		## > Run simple-cdd
+		##
 		debug "Stage 2/2 - Build"
 		cd simple-cdd/
 		run_and_log build-simple-cdd \
