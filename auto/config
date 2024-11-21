@@ -105,15 +105,15 @@ esac
 # Setup configuration files from variant and options
 
 # Drop all files that a former run might have put into place
-for file in $(cd lika-config && find ./common ./variant-* -type f); do
+for file in $(cd master-config && find ./common ./variant-* -type f); do
     file=${file#./*/}
     rm -fv config/$file
 done
 rm -fv config/archives/lika-proposed-updates.list.*
 
 # Copy over all files from official lika configuration
-cp -rT lika-config/common config
-[ ! -d lika-config/variant-$variant ] || cp -rTL lika-config/variant-$variant config
+cp -rT master-config/common config
+[ ! -d master-config/variant-$variant ] || cp -rTL master-config/variant-$variant config
 
 if [ -n "$enable_pu" ]; then
 	mkdir -p config/archives

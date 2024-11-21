@@ -11,8 +11,8 @@ ARCHES=$5
 # Copy grub theme assets
 # Until debian-cd picks them from d-i automatically:
 # http://bugs.debian.org/1003927
-cp -r $BASEDIR/../../lika-config/common/bootloaders/grub-pc/theme \
-      $BASEDIR/../../lika-config/common/bootloaders/grub-pc/splash.png \
+cp -r $BASEDIR/../../master-config/common/bootloaders/grub-pc/theme \
+      $BASEDIR/../../master-config/common/bootloaders/grub-pc/splash.png \
       $CDDIR/boot/grub/
 
 cd $CDDIR

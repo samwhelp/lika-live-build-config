@@ -263,14 +263,14 @@ fi
 debug "IMAGE_TYPE: ${IMAGE_TYPE}"
 case "${IMAGE_TYPE}" in
 	live)
-		if [ ! -d "$(dirname ${0})/lika-config/variant-${MASTER_VARIANT}" ]; then
+		if [ ! -d "$(dirname ${0})/master-config/variant-${MASTER_VARIANT}" ]; then
 			echo "ERROR: Unknown variant of Lika live configuration: ${MASTER_VARIANT}" >&2
 		fi
 		require_package live-build "1:20230502"
 		require_package debootstrap "1.0.97"
 	;;
 	installer)
-		if [ ! -d "$(dirname ${0})/lika-config/installer-${MASTER_VARIANT}" ]; then
+		if [ ! -d "$(dirname ${0})/master-config/installer-${MASTER_VARIANT}" ]; then
 			echo "ERROR: Unknown variant of Lika installer configuration: ${MASTER_VARIANT}" >&2
 		fi
 		require_package debian-cd "3.2.1"
@@ -384,7 +384,7 @@ case "${IMAGE_TYPE}" in
 		## > Use the same grub theme as in the live images
 		## > Until debian-cd is smart enough: http://bugs.debian.org/1003927
 		##
-		cp -f lika-config/common/bootloaders/grub-pc/grub-theme.in simple-cdd/debian-cd/data/${CODENAME}/grub-theme.in
+		cp -f master-config/common/bootloaders/grub-pc/grub-theme.in simple-cdd/debian-cd/data/${CODENAME}/grub-theme.in
 
 		##
 		## > Keep 686-pae udebs as we changed the default from 686
@@ -397,7 +397,7 @@ case "${IMAGE_TYPE}" in
 		##
 		## > Configure the lika profile with the packages we want
 		##
-		grep -v '^#' lika-config/installer-${MASTER_VARIANT}/packages \
+		grep -v '^#' master-config/installer-${MASTER_VARIANT}/packages \
 			> simple-cdd/profiles/lika.downloads
 		[ ${?} -eq 0 ] || failure
 
