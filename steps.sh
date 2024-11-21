@@ -286,8 +286,8 @@ debug "SUDO: ${SUDO}"
 IMAGE_NAME="$(image_name ${MASTER_ARCH})"
 debug "IMAGE_NAME: ${IMAGE_NAME}"
 
-debug "ACTION: $ACTION"
-if [ "$ACTION" = "get-image-path" ]; then
+debug "ACTION: ${ACTION}"
+if [ "${ACTION}" = "get-image-path" ]; then
 	echo $(target_image_name ${MASTER_ARCH})
 	exit 0
 fi
@@ -295,7 +295,7 @@ fi
 if [ "$NO_CLEAN" = "" ]; then
 	clean
 fi
-if [ "$ACTION" = "clean" ]; then
+if [ "${ACTION}" = "clean" ]; then
 	exit 0
 fi
 
