@@ -96,7 +96,7 @@ default_version() {
 
 failure() {
 	echo "Build of ${MASTER_DIST}/${MASTER_VARIANT}/${MASTER_ARCH} $IMAGE_TYPE image failed (see build.log for details)" >&2
-	echo "Log: $BUILD_LOG" >&2
+	echo "Log: ${BUILD_LOG}" >&2
 	exit 2
 }
 
@@ -107,9 +107,9 @@ run_and_log() {
 			[[ $_ =~ [[:space:]] ]] && printf " '%s'" "$_" || printf " %s" "$_"
 		done >&2
 		printf "\n" >&2
-		"$@" 2>&1 | tee -a "$BUILD_LOG"
+		"$@" 2>&1 | tee -a "${BUILD_LOG}"
 	else
-		"$@" >>"$BUILD_LOG" 2>&1
+		"$@" >>"${BUILD_LOG}" 2>&1
 	fi
 	return $?
 }
@@ -169,9 +169,9 @@ require_package() {
 . $(dirname $0)/.getopt.sh
 
 BUILD_LOG="$(pwd)/build.log"
-debug "BUILD_LOG: $BUILD_LOG"
+debug "BUILD_LOG: ${BUILD_LOG}"
 # Create empty file
-: > "$BUILD_LOG"
+: > "${BUILD_LOG}"
 
 # Parsing command line options (see .getopt.sh)
 temp=$(getopt -o "$BUILD_OPTS_SHORT" -l "$BUILD_OPTS_LONG,get-image-path" -- "$@")
@@ -412,6 +412,6 @@ set -e
 
 debug "Moving files"
 run_and_log mv -f ${IMAGE_NAME} $TARGET_DIR/$(target_image_name ${MASTER_ARCH})
-run_and_log mv -f "$BUILD_LOG" $TARGET_DIR/$(target_build_log ${MASTER_ARCH})
+run_and_log mv -f "${BUILD_LOG}" $TARGET_DIR/$(target_build_log ${MASTER_ARCH})
 
 run_and_log echo -e "\n***\nGENERATED FINAL IMAGE: $TARGET_DIR/$(target_image_name ${MASTER_ARCH})\n***"
