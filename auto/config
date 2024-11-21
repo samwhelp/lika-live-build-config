@@ -118,9 +118,9 @@ cp -rT master-config/common config
 if [ -n "$enable_pu" ]; then
 	mkdir -p config/archives
 	echo "deb ${master_mirror} ${dist}-proposed-updates main contrib non-free non-free-firmware" \
-		> config/archives/lika-proposed-updates.list.chroot
+		> config/archives/${dist}-proposed-updates.list.chroot
 	echo "deb ${public_master_mirror} ${dist}-proposed-updates main contrib non-free non-free-firmware" \
-		> config/archives/lika-proposed-updates.list.binary
+		> config/archives/${dist}-proposed-updates.list.binary
 fi
 
 
