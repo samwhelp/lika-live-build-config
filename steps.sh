@@ -111,7 +111,7 @@ run_and_log () {
 	else
 		"$@" >>"${BUILD_LOG}" 2>&1
 	fi
-	return $?
+	return ${?}
 }
 
 debug () {
@@ -323,11 +323,11 @@ case "${IMAGE_TYPE}" in
 	live)
 		debug "Stage 1/2 - Config"
 		run_and_log lb config -a ${MASTER_ARCH} ${MASTER_CONFIG_OPTS} "$@"
-		[ $? -eq 0 ] || failure
+		[ ${?} -eq 0 ] || failure
 
 		debug "Stage 2/2 - Build"
 		run_and_log ${SUDO} lb build
-		if [ $? -ne 0 ] || [ ! -e ${IMAGE_NAME} ]; then
+		if [ ${?} -ne 0 ] || [ ! -e ${IMAGE_NAME} ]; then
 			failure
 		fi
 	;;
@@ -378,7 +378,7 @@ case "${IMAGE_TYPE}" in
 		## > Setup custom debian-cd to make our changes
 		##
 		cp -aT /usr/share/debian-cd simple-cdd/debian-cd
-		[ $? -eq 0 ] || failure
+		[ ${?} -eq 0 ] || failure
 
 		##
 		## > Use the same grub theme as in the live images
@@ -392,20 +392,20 @@ case "${IMAGE_TYPE}" in
 		##
 		sed -i -e '/686-pae/d' \
 			simple-cdd/debian-cd/data/${CODENAME}/exclude-udebs-i386
-		[ $? -eq 0 ] || failure
+		[ ${?} -eq 0 ] || failure
 
 		##
 		## > Configure the lika profile with the packages we want
 		##
 		grep -v '^#' lika-config/installer-${MASTER_VARIANT}/packages \
 			> simple-cdd/profiles/lika.downloads
-		[ $? -eq 0 ] || failure
+		[ ${?} -eq 0 ] || failure
 
 		##
 		## > Tasksel is required in the mirror for debian-cd
 		##
 		echo tasksel >> simple-cdd/profiles/lika.downloads
-		[ $? -eq 0 ] || failure
+		[ ${?} -eq 0 ] || failure
 
 		##
 		## > Grub is the only supported bootloader on arm64
@@ -413,7 +413,7 @@ case "${IMAGE_TYPE}" in
 		if [ "${MASTER_ARCH}" = "arm64" ]; then
 			debug "arm64 GRUB"
 			echo "grub-efi-arm64" >> simple-cdd/profiles/lika.downloads
-			[ $? -eq 0 ] || failure
+			[ ${?} -eq 0 ] || failure
 		fi
 
 		##
@@ -430,7 +430,7 @@ case "${IMAGE_TYPE}" in
 			--debian-mirror ${master_mirror} \
 			--profiles "${profiles}" \
 			--auto-profiles "${auto_profiles}"
-		res=$?
+		res=${?}
 		cd ../
 		if [ ${res} -ne 0 ] || [ ! -e ${IMAGE_NAME} ]; then
 			failure
