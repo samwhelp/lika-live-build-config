@@ -95,7 +95,7 @@ default_version() {
 }
 
 failure() {
-	echo "Build of $MASTER_DIST/$MASTER_VARIANT/${MASTER_ARCH} $IMAGE_TYPE image failed (see build.log for details)" >&2
+	echo "Build of ${MASTER_DIST}/$MASTER_VARIANT/${MASTER_ARCH} $IMAGE_TYPE image failed (see build.log for details)" >&2
 	echo "Log: $BUILD_LOG" >&2
 	exit 2
 }
@@ -208,7 +208,7 @@ fi
 debug "MASTER_ARCH: ${MASTER_ARCH}"
 
 if [ -z "$MASTER_VERSION" ]; then
-	MASTER_VERSION="$(default_version $MASTER_DIST)"
+	MASTER_VERSION="$(default_version ${MASTER_DIST})"
 fi
 debug "MASTER_VERSION: $MASTER_VERSION"
 
@@ -226,15 +226,15 @@ if [ "$HOST_ARCH" != "${MASTER_ARCH}" ] && [ "$IMAGE_TYPE" != "installer" ]; the
 fi
 
 # Build parameters for lb config
-MASTER_CONFIG_OPTS="--distribution $MASTER_DIST -- --variant $MASTER_VARIANT"
-CODENAME=$MASTER_DIST # for simple-cdd/debian-cd
+MASTER_CONFIG_OPTS="--distribution ${MASTER_DIST} -- --variant $MASTER_VARIANT"
+CODENAME=${MASTER_DIST} # for simple-cdd/debian-cd
 if [ -n "$OPT_pu" ]; then
 	MASTER_CONFIG_OPTS="$MASTER_CONFIG_OPTS --proposed-updates"
-	MASTER_DIST="$MASTER_DIST+pu"
+	MASTER_DIST="${MASTER_DIST}+pu"
 fi
 debug "MASTER_CONFIG_OPTS: $MASTER_CONFIG_OPTS"
 debug "CODENAME: $CODENAME"
-debug "MASTER_DIST: $MASTER_DIST"
+debug "MASTER_DIST: ${MASTER_DIST}"
 
 # Set sane PATH (cron seems to lack /sbin/ dirs)
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
