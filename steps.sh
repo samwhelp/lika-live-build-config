@@ -298,7 +298,7 @@ if [ "$ACTION" = "clean" ]; then
 fi
 
 cd $(dirname $0)
-mkdir -p $TARGET_DIR/$TARGET_SUBDIR
+mkdir -p ${TARGET_DIR}/$TARGET_SUBDIR
 
 # Don't quit on any errors now
 set +e
@@ -411,7 +411,7 @@ esac
 set -e
 
 debug "Moving files"
-run_and_log mv -f ${IMAGE_NAME} $TARGET_DIR/$(target_image_name ${MASTER_ARCH})
-run_and_log mv -f "${BUILD_LOG}" $TARGET_DIR/$(target_build_log ${MASTER_ARCH})
+run_and_log mv -f ${IMAGE_NAME} ${TARGET_DIR}/$(target_image_name ${MASTER_ARCH})
+run_and_log mv -f "${BUILD_LOG}" ${TARGET_DIR}/$(target_build_log ${MASTER_ARCH})
 
-run_and_log echo -e "\n***\nGENERATED FINAL IMAGE: $TARGET_DIR/$(target_image_name ${MASTER_ARCH})\n***"
+run_and_log echo -e "\n***\nGENERATED FINAL IMAGE: ${TARGET_DIR}/$(target_image_name ${MASTER_ARCH})\n***"
