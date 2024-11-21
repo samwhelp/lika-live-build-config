@@ -1,6 +1,6 @@
 #!/bin/sh
 
-lb clean noauto "$@"
+lb clean noauto "${@}"
 
 rm -fv config/binary \
 	config/bootstrap \
