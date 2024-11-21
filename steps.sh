@@ -56,7 +56,7 @@ installer_image_name() {
 }
 
 target_image_name() {
-	local arch=$1
+	local arch=${1}
 
 	IMAGE_NAME="$(image_name $arch)"
 	IMAGE_EXT="${IMAGE_NAME##*.}"
@@ -79,17 +79,17 @@ target_image_name() {
 }
 
 target_build_log() {
-	TARGET_IMAGE_NAME=$(target_image_name $1)
+	TARGET_IMAGE_NAME=$(target_image_name ${1})
 	echo ${TARGET_IMAGE_NAME%.*}.log
 }
 
 default_version() {
-	case "$1" in
+	case "${1}" in
 		lika-*)
 			echo "${1#lika-}"
 		;;
 		*)
-			echo "$1"
+			echo "${1}"
 		;;
 	esac
 }
@@ -149,7 +149,7 @@ print_help() {
 }
 
 require_package() {
-	local pkg=$1
+	local pkg=${1}
 	local required_version=${2}
 	local pkg_version=
 
@@ -177,7 +177,7 @@ debug "BUILD_LOG: ${BUILD_LOG}"
 temp=$(getopt -o "$BUILD_OPTS_SHORT" -l "$BUILD_OPTS_LONG,get-image-path" -- "$@")
 eval set -- "$temp"
 while true; do
-	case "$1" in
+	case "${1}" in
 		-d|--distribution) MASTER_DIST="${2}"; shift 2; ;;
 		-p|--proposed-updates) OPT_pu="1"; shift 1; ;;
 		-a|--arch) MASTER_ARCH="${2}"; shift 2; ;;
@@ -194,7 +194,7 @@ while true; do
 		--clean) ACTION="clean"; shift 1; ;;
 		--no-clean) NO_CLEAN="1"; shift 1 ;;
 		--) shift; break; ;;
-		*) echo "ERROR: Invalid command-line option: $1" >&2; exit 1; ;;
+		*) echo "ERROR: Invalid command-line option: ${1}" >&2; exit 1; ;;
 	esac
 done
 
