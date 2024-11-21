@@ -150,7 +150,7 @@ print_help() {
 
 require_package() {
 	local pkg=$1
-	local required_version=$2
+	local required_version=${2}
 	local pkg_version=
 
 	pkg_version=$(dpkg-query -f '${Version}' -W $pkg || true)
@@ -178,18 +178,18 @@ temp=$(getopt -o "$BUILD_OPTS_SHORT" -l "$BUILD_OPTS_LONG,get-image-path" -- "$@
 eval set -- "$temp"
 while true; do
 	case "$1" in
-		-d|--distribution) MASTER_DIST="$2"; shift 2; ;;
+		-d|--distribution) MASTER_DIST="${2}"; shift 2; ;;
 		-p|--proposed-updates) OPT_pu="1"; shift 1; ;;
-		-a|--arch) MASTER_ARCH="$2"; shift 2; ;;
+		-a|--arch) MASTER_ARCH="${2}"; shift 2; ;;
 		-v|--verbose) VERBOSE="1"; shift 1; ;;
 		-D|--debug) DEBUG="1"; shift 1; ;;
 		-s|--salt) shift; ;;
 		-h|--help) print_help; ;;
 		--installer) IMAGE_TYPE="installer"; shift 1 ;;
 		--live) IMAGE_TYPE="live"; shift 1 ;;
-		--variant) MASTER_VARIANT="$2"; shift 2; ;;
-		--version) MASTER_VERSION="$2"; shift 2; ;;
-		--subdir) TARGET_SUBDIR="$2"; shift 2; ;;
+		--variant) MASTER_VARIANT="${2}"; shift 2; ;;
+		--version) MASTER_VERSION="${2}"; shift 2; ;;
+		--subdir) TARGET_SUBDIR="${2}"; shift 2; ;;
 		--get-image-path) ACTION="get-image-path"; shift 1; ;;
 		--clean) ACTION="clean"; shift 1; ;;
 		--no-clean) NO_CLEAN="1"; shift 1 ;;
