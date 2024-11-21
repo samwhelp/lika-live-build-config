@@ -154,15 +154,15 @@ require_package() {
 	local pkg_version=
 
 	pkg_version=$(dpkg-query -f '${Version}' -W $pkg || true)
-	if [ -z "$pkg_version" ]; then
+	if [ -z "${pkg_version}" ]; then
 		echo "ERROR: You need $pkg, but it is not installed" >&2
 		exit 1
 	fi
-	if dpkg --compare-versions "$pkg_version" lt "$required_version"; then
-		echo "ERROR: You need $pkg (>= $required_version), you have $pkg_version" >&2
+	if dpkg --compare-versions "${pkg_version}" lt "$required_version"; then
+		echo "ERROR: You need $pkg (>= $required_version), you have ${pkg_version}" >&2
 		exit 1
 	fi
-	debug "$pkg version: $pkg_version"
+	debug "$pkg version: ${pkg_version}"
 }
 
 # Allowed command line options
@@ -243,7 +243,7 @@ export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 debug "PATH: $PATH"
 
 if grep -q -e "^ID=debian" -e "^ID_LIKE=debian" /usr/lib/os-release; then
-	debug "OS: $( . /usr/lib/os-release && echo $NAME $VERSION )"
+	debug "OS: $( . /usr/lib/os-release && echo ${NAME} ${VERSION} )"
 elif [ -e /etc/debian_version ]; then
 	debug "OS: $( cat /etc/debian_version )"
 else
