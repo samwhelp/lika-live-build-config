@@ -338,14 +338,14 @@ case "$IMAGE_TYPE" in
 		[ -v KERNEL_PARAMS ] && debug "KERNEL_PARAMS: $KERNEL_PARAMS"
 
 		if [ -e .mirror ]; then
-			lika_mirror=$(cat .mirror)
+			master_mirror=$(cat .mirror)
 		else
-			lika_mirror=http://deb.debian.org/debian/
+			master_mirror=http://deb.debian.org/debian/
 		fi
-		if ! echo "$lika_mirror" | grep -q '/$'; then
-			lika_mirror="$lika_mirror/"
+		if ! echo "$master_mirror" | grep -q '/$'; then
+			master_mirror="$master_mirror/"
 		fi
-		debug "lika_mirror: $lika_mirror"
+		debug "master_mirror: $master_mirror"
 
 		debug "Stage 1/2 - File(s)"
 		# Setup custom debian-cd to make our changes
@@ -388,7 +388,7 @@ case "$IMAGE_TYPE" in
 			--force-root \
 			--conf simple-cdd.conf \
 			--dist $CODENAME \
-			--debian-mirror $lika_mirror \
+			--debian-mirror $master_mirror \
 			--profiles "$profiles" \
 			--auto-profiles "$auto_profiles"
 		res=$?
