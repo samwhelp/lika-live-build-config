@@ -324,7 +324,7 @@ case "${IMAGE_TYPE}" in
 		export ARCH=${MASTER_ARCH}
 		export DEBVERSION=${MASTER_VERSION}
 		debug "BASEDIR: ${BASEDIR}"
-		debug "ARCHES: $ARCHES"
+		debug "ARCHES: ${ARCHES}"
 		debug "ARCH: $ARCH"
 		debug "DEBVERSION: $DEBVERSION"
 
