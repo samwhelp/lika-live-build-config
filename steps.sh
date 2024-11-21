@@ -213,13 +213,13 @@ fi
 debug "MASTER_VERSION: ${MASTER_VERSION}"
 
 # Check parameters
-debug "HOST_ARCH: $HOST_ARCH"
-if [ "$HOST_ARCH" != "${MASTER_ARCH}" ] && [ "$IMAGE_TYPE" != "installer" ]; then
-	case "$HOST_ARCH/${MASTER_ARCH}" in
+debug "HOST_ARCH: ${HOST_ARCH}"
+if [ "${HOST_ARCH}" != "${MASTER_ARCH}" ] && [ "$IMAGE_TYPE" != "installer" ]; then
+	case "${HOST_ARCH}/${MASTER_ARCH}" in
 		amd64/i386|i386/amd64)
 		;;
 		*)
-			echo "Can't build ${MASTER_ARCH} image on $HOST_ARCH system." >&2
+			echo "Can't build ${MASTER_ARCH} image on ${HOST_ARCH} system." >&2
 			exit 1
 		;;
 	esac
