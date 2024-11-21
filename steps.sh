@@ -343,8 +343,8 @@ case "${IMAGE_TYPE}" in
 			auto_profiles="lika offline"
 		fi
 		debug "DISKTYPE: ${DISKTYPE}"
-		debug "profiles: $profiles"
-		debug "auto_profiles: $auto_profiles"
+		debug "profiles: ${profiles}"
+		debug "auto_profiles: ${auto_profiles}"
 		[ -v KERNEL_PARAMS ] && debug "KERNEL_PARAMS: $KERNEL_PARAMS"
 
 		if [ -e .mirror ]; then
@@ -399,8 +399,8 @@ case "${IMAGE_TYPE}" in
 			--conf simple-cdd.conf \
 			--dist ${CODENAME} \
 			--debian-mirror $master_mirror \
-			--profiles "$profiles" \
-			--auto-profiles "$auto_profiles"
+			--profiles "${profiles}" \
+			--auto-profiles "${auto_profiles}"
 		res=$?
 		cd ../
 		if [ ${res} -ne 0 ] || [ ! -e ${IMAGE_NAME} ]; then
