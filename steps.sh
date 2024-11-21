@@ -292,7 +292,7 @@ if [ "${ACTION}" = "get-image-path" ]; then
 	exit 0
 fi
 
-if [ "$NO_CLEAN" = "" ]; then
+if [ "${NO_CLEAN}" = "" ]; then
 	clean
 fi
 if [ "${ACTION}" = "clean" ]; then
