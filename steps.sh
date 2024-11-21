@@ -235,7 +235,7 @@ if [ -n "${OPT_pu}" ]; then
 	MASTER_DIST="${MASTER_DIST}+pu"
 fi
 debug "MASTER_CONFIG_OPTS: $MASTER_CONFIG_OPTS"
-debug "CODENAME: $CODENAME"
+debug "CODENAME: ${CODENAME}"
 debug "MASTER_DIST: ${MASTER_DIST}"
 
 # Set sane PATH (cron seems to lack /sbin/ dirs)
@@ -364,12 +364,12 @@ case "${IMAGE_TYPE}" in
 
 		# Use the same grub theme as in the live images
 		# Until debian-cd is smart enough: http://bugs.debian.org/1003927
-		cp -f lika-config/common/bootloaders/grub-pc/grub-theme.in simple-cdd/debian-cd/data/$CODENAME/grub-theme.in
+		cp -f lika-config/common/bootloaders/grub-pc/grub-theme.in simple-cdd/debian-cd/data/${CODENAME}/grub-theme.in
 
 		# Keep 686-pae udebs as we changed the default from 686
 		# to 686-pae in the debian-installer images
 		sed -i -e '/686-pae/d' \
-			simple-cdd/debian-cd/data/$CODENAME/exclude-udebs-i386
+			simple-cdd/debian-cd/data/${CODENAME}/exclude-udebs-i386
 		[ $? -eq 0 ] || failure
 
 		# Configure the lika profile with the packages we want
@@ -397,7 +397,7 @@ case "${IMAGE_TYPE}" in
 			--debug \
 			--force-root \
 			--conf simple-cdd.conf \
-			--dist $CODENAME \
+			--dist ${CODENAME} \
 			--debian-mirror $master_mirror \
 			--profiles "$profiles" \
 			--auto-profiles "$auto_profiles"
