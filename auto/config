@@ -113,7 +113,7 @@ rm -fv config/archives/${dist}-proposed-updates.list.*
 
 # Copy over all files from master configuration
 cp -rT master-config/common config
-[ ! -d master-config/variant-$variant ] || cp -rTL master-config/variant-$variant config
+[ ! -d master-config/variant-${variant} ] || cp -rTL master-config/variant-${variant} config
 
 if [ -n "$enable_pu" ]; then
 	mkdir -p config/archives
