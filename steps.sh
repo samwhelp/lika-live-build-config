@@ -65,15 +65,15 @@ target_image_name() {
 	fi
 	if [ "$IMAGE_TYPE" = "live" ]; then
 		if [ "$MASTER_VARIANT" = "default" ]; then
-			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}lika-linux-$MASTER_VERSION-live-$MASTER_ARCH.$IMAGE_EXT"
+			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}${MASTER_NAME}-linux-$MASTER_VERSION-live-$MASTER_ARCH.$IMAGE_EXT"
 		else
-			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}lika-linux-$MASTER_VERSION-live-$MASTER_VARIANT-$MASTER_ARCH.$IMAGE_EXT"
+			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}${MASTER_NAME}-linux-$MASTER_VERSION-live-$MASTER_VARIANT-$MASTER_ARCH.$IMAGE_EXT"
 		fi
 	else
 		if [ "$MASTER_VARIANT" = "default" ]; then
-			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}lika-linux-$MASTER_VERSION-installer-$MASTER_ARCH.$IMAGE_EXT"
+			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}${MASTER_NAME}-linux-$MASTER_VERSION-installer-$MASTER_ARCH.$IMAGE_EXT"
 		else
-			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}lika-linux-$MASTER_VERSION-installer-$MASTER_VARIANT-$MASTER_ARCH.$IMAGE_EXT"
+			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}${MASTER_NAME}-linux-$MASTER_VERSION-installer-$MASTER_VARIANT-$MASTER_ARCH.$IMAGE_EXT"
 		fi
 	fi
 }
@@ -261,7 +261,7 @@ case "$IMAGE_TYPE" in
 		if [ ! -d "$(dirname $0)/lika-config/installer-$MASTER_VARIANT" ]; then
 			echo "ERROR: Unknown variant of Lika installer configuration: $MASTER_VARIANT" >&2
 		fi
-		require_package debian-cd "3.2.1+lika1"
+		require_package debian-cd "3.2.1"
 		require_package simple-cdd "0.6.9"
 	;;
 	*)
