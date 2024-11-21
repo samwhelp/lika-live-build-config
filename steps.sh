@@ -101,7 +101,7 @@ failure () {
 }
 
 run_and_log () {
-	if [ -n "$VERBOSE" ] || [ -n "$DEBUG" ]; then
+	if [ -n "$VERBOSE" ] || [ -n "${DEBUG}" ]; then
 		printf "RUNNING:" >&2
 		for _ in "$@"; do
 			[[ $_ =~ [[:space:]] ]] && printf " '%s'" "$_" || printf " %s" "$_"
@@ -115,7 +115,7 @@ run_and_log () {
 }
 
 debug () {
-	if [ -n "$DEBUG" ]; then
+	if [ -n "${DEBUG}" ]; then
 		echo "DEBUG: $*" >&2
 	fi
 }
