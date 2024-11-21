@@ -37,21 +37,21 @@ image_name() {
 }
 
 live_image_name() {
-	case "$MASTER_ARCH" in
+	case "${MASTER_ARCH}" in
 		i386|amd64|arm64)
-			echo "live-image-$MASTER_ARCH.hybrid.iso"
+			echo "live-image-${MASTER_ARCH}.hybrid.iso"
 		;;
 		armel|armhf)
-			echo "live-image-$MASTER_ARCH.img"
+			echo "live-image-${MASTER_ARCH}.img"
 		;;
 	esac
 }
 
 installer_image_name() {
 	if [ "$MASTER_VARIANT" = "netinst" ]; then
-		echo "simple-cdd/images/lika-$MASTER_VERSION-$MASTER_ARCH-NETINST-1.iso"
+		echo "simple-cdd/images/lika-$MASTER_VERSION-${MASTER_ARCH}-NETINST-1.iso"
 	else
-		echo "simple-cdd/images/lika-$MASTER_VERSION-$MASTER_ARCH-BD-1.iso"
+		echo "simple-cdd/images/lika-$MASTER_VERSION-${MASTER_ARCH}-BD-1.iso"
 	fi
 }
 
@@ -65,15 +65,15 @@ target_image_name() {
 	fi
 	if [ "$IMAGE_TYPE" = "live" ]; then
 		if [ "$MASTER_VARIANT" = "default" ]; then
-			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}${MASTER_NAME}-linux-$MASTER_VERSION-live-$MASTER_ARCH.$IMAGE_EXT"
+			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}${MASTER_NAME}-linux-$MASTER_VERSION-live-${MASTER_ARCH}.$IMAGE_EXT"
 		else
-			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}${MASTER_NAME}-linux-$MASTER_VERSION-live-$MASTER_VARIANT-$MASTER_ARCH.$IMAGE_EXT"
+			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}${MASTER_NAME}-linux-$MASTER_VERSION-live-$MASTER_VARIANT-${MASTER_ARCH}.$IMAGE_EXT"
 		fi
 	else
 		if [ "$MASTER_VARIANT" = "default" ]; then
-			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}${MASTER_NAME}-linux-$MASTER_VERSION-installer-$MASTER_ARCH.$IMAGE_EXT"
+			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}${MASTER_NAME}-linux-$MASTER_VERSION-installer-${MASTER_ARCH}.$IMAGE_EXT"
 		else
-			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}${MASTER_NAME}-linux-$MASTER_VERSION-installer-$MASTER_VARIANT-$MASTER_ARCH.$IMAGE_EXT"
+			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}${MASTER_NAME}-linux-$MASTER_VERSION-installer-$MASTER_VARIANT-${MASTER_ARCH}.$IMAGE_EXT"
 		fi
 	fi
 }
@@ -95,7 +95,7 @@ default_version() {
 }
 
 failure() {
-	echo "Build of $MASTER_DIST/$MASTER_VARIANT/$MASTER_ARCH $IMAGE_TYPE image failed (see build.log for details)" >&2
+	echo "Build of $MASTER_DIST/$MASTER_VARIANT/${MASTER_ARCH} $IMAGE_TYPE image failed (see build.log for details)" >&2
 	echo "Log: $BUILD_LOG" >&2
 	exit 2
 }
@@ -200,12 +200,12 @@ done
 
 # Set default values
 MASTER_ARCH=${MASTER_ARCH:-$HOST_ARCH}
-if [ "$MASTER_ARCH" = "x64" ]; then
+if [ "${MASTER_ARCH}" = "x64" ]; then
 	MASTER_ARCH="amd64"
-elif [ "$MASTER_ARCH" = "x86" ]; then
+elif [ "${MASTER_ARCH}" = "x86" ]; then
 	MASTER_ARCH="i386"
 fi
-debug "MASTER_ARCH: $MASTER_ARCH"
+debug "MASTER_ARCH: ${MASTER_ARCH}"
 
 if [ -z "$MASTER_VERSION" ]; then
 	MASTER_VERSION="$(default_version $MASTER_DIST)"
@@ -214,12 +214,12 @@ debug "MASTER_VERSION: $MASTER_VERSION"
 
 # Check parameters
 debug "HOST_ARCH: $HOST_ARCH"
-if [ "$HOST_ARCH" != "$MASTER_ARCH" ] && [ "$IMAGE_TYPE" != "installer" ]; then
-	case "$HOST_ARCH/$MASTER_ARCH" in
+if [ "$HOST_ARCH" != "${MASTER_ARCH}" ] && [ "$IMAGE_TYPE" != "installer" ]; then
+	case "$HOST_ARCH/${MASTER_ARCH}" in
 		amd64/i386|i386/amd64)
 		;;
 		*)
-			echo "Can't build $MASTER_ARCH image on $HOST_ARCH system." >&2
+			echo "Can't build ${MASTER_ARCH} image on $HOST_ARCH system." >&2
 			exit 1
 		;;
 	esac
@@ -281,12 +281,12 @@ else
 fi
 debug "SUDO: $SUDO"
 
-IMAGE_NAME="$(image_name $MASTER_ARCH)"
+IMAGE_NAME="$(image_name ${MASTER_ARCH})"
 debug "IMAGE_NAME: $IMAGE_NAME"
 
 debug "ACTION: $ACTION"
 if [ "$ACTION" = "get-image-path" ]; then
-	echo $(target_image_name $MASTER_ARCH)
+	echo $(target_image_name ${MASTER_ARCH})
 	exit 0
 fi
 
@@ -306,7 +306,7 @@ set +e
 case "$IMAGE_TYPE" in
 	live)
 		debug "Stage 1/2 - Config"
-		run_and_log lb config -a $MASTER_ARCH $MASTER_CONFIG_OPTS "$@"
+		run_and_log lb config -a ${MASTER_ARCH} $MASTER_CONFIG_OPTS "$@"
 		[ $? -eq 0 ] || failure
 
 		debug "Stage 2/2 - Build"
@@ -318,8 +318,8 @@ case "$IMAGE_TYPE" in
 	installer)
 		# Override some debian-cd environment variables
 		export BASEDIR="$(pwd)/simple-cdd/debian-cd"
-		export ARCHES=$MASTER_ARCH
-		export ARCH=$MASTER_ARCH
+		export ARCHES=${MASTER_ARCH}
+		export ARCH=${MASTER_ARCH}
 		export DEBVERSION=$MASTER_VERSION
 		debug "BASEDIR: $BASEDIR"
 		debug "ARCHES: $ARCHES"
@@ -381,7 +381,7 @@ case "$IMAGE_TYPE" in
 
 		# Grub is the only supported bootloader on arm64
 		# so ensure it's on the iso for arm64.
-		if [ "$MASTER_ARCH" = "arm64" ]; then
+		if [ "${MASTER_ARCH}" = "arm64" ]; then
 			debug "arm64 GRUB"
 			echo "grub-efi-arm64" >> simple-cdd/profiles/lika.downloads
 			[ $? -eq 0 ] || failure
@@ -411,7 +411,7 @@ esac
 set -e
 
 debug "Moving files"
-run_and_log mv -f $IMAGE_NAME $TARGET_DIR/$(target_image_name $MASTER_ARCH)
-run_and_log mv -f "$BUILD_LOG" $TARGET_DIR/$(target_build_log $MASTER_ARCH)
+run_and_log mv -f $IMAGE_NAME $TARGET_DIR/$(target_image_name ${MASTER_ARCH})
+run_and_log mv -f "$BUILD_LOG" $TARGET_DIR/$(target_build_log ${MASTER_ARCH})
 
-run_and_log echo -e "\n***\nGENERATED FINAL IMAGE: $TARGET_DIR/$(target_image_name $MASTER_ARCH)\n***"
+run_and_log echo -e "\n***\nGENERATED FINAL IMAGE: $TARGET_DIR/$(target_image_name ${MASTER_ARCH})\n***"
