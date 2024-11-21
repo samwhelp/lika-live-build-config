@@ -218,7 +218,9 @@ if [ -z "${MASTER_VERSION}" ]; then
 fi
 debug "MASTER_VERSION: ${MASTER_VERSION}"
 
-# Check parameters
+##
+## > Check parameters
+##
 debug "HOST_ARCH: ${HOST_ARCH}"
 if [ "${HOST_ARCH}" != "${MASTER_ARCH}" ] && [ "${IMAGE_TYPE}" != "installer" ]; then
 	case "${HOST_ARCH}/${MASTER_ARCH}" in
