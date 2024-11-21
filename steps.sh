@@ -230,7 +230,7 @@ fi
 # Build parameters for lb config
 MASTER_CONFIG_OPTS="--distribution ${MASTER_DIST} -- --variant ${MASTER_VARIANT}"
 CODENAME=${MASTER_DIST} # for simple-cdd/debian-cd
-if [ -n "$OPT_pu" ]; then
+if [ -n "${OPT_pu}" ]; then
 	MASTER_CONFIG_OPTS="$MASTER_CONFIG_OPTS --proposed-updates"
 	MASTER_DIST="${MASTER_DIST}+pu"
 fi
