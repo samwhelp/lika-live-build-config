@@ -151,7 +151,7 @@ print_help() {
 require_package() {
 	local pkg=${1}
 	local required_version=${2}
-	local pkg_version=
+	local pkg_version=""
 
 	pkg_version=$(dpkg-query -f '${Version}' -W ${pkg} || true)
 	if [ -z "${pkg_version}" ]; then
