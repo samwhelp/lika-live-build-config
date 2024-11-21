@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Run the lika-finish-install script to configure the target system
-cp /lika-finish-install /target/
-in-target /lika-finish-install || true
-rm -f /target/lika-finish-install
+# Run the main-finish-install script to configure the target system
+cp /main-finish-install /target/
+in-target /main-finish-install || true
+rm -f /target/main-finish-install
