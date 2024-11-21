@@ -18,7 +18,7 @@ MASTER_DIST="bookworm"
 MASTER_VERSION=""
 MASTER_VARIANT="default"
 IMAGE_TYPE="live"
-TARGET_DIR="$(dirname $0)/images"
+TARGET_DIR="$(dirname ${0})/images"
 TARGET_SUBDIR=""
 SUDO="sudo"
 VERBOSE=""
@@ -137,7 +137,7 @@ clean() {
 }
 
 print_help() {
-	echo "Usage: $0 [<option>...]"
+	echo "Usage: ${0} [<option>...]"
 	echo
 	for x in $(echo "${BUILD_OPTS_LONG}" | sed 's_,_ _g'); do
 		x=$(echo $x | sed 's/:$/ <arg>/')
@@ -166,7 +166,7 @@ require_package() {
 }
 
 # Allowed command line options
-. $(dirname $0)/.getopt.sh
+. $(dirname ${0})/.getopt.sh
 
 BUILD_LOG="$(pwd)/build.log"
 debug "BUILD_LOG: ${BUILD_LOG}"
@@ -251,14 +251,14 @@ fi
 debug "IMAGE_TYPE: $IMAGE_TYPE"
 case "$IMAGE_TYPE" in
 	live)
-		if [ ! -d "$(dirname $0)/lika-config/variant-${MASTER_VARIANT}" ]; then
+		if [ ! -d "$(dirname ${0})/lika-config/variant-${MASTER_VARIANT}" ]; then
 			echo "ERROR: Unknown variant of Lika live configuration: ${MASTER_VARIANT}" >&2
 		fi
 		require_package live-build "1:20230502"
 		require_package debootstrap "1.0.97"
 	;;
 	installer)
-		if [ ! -d "$(dirname $0)/lika-config/installer-${MASTER_VARIANT}" ]; then
+		if [ ! -d "$(dirname ${0})/lika-config/installer-${MASTER_VARIANT}" ]; then
 			echo "ERROR: Unknown variant of Lika installer configuration: ${MASTER_VARIANT}" >&2
 		fi
 		require_package debian-cd "3.2.1"
@@ -273,7 +273,7 @@ esac
 # We need root rights at some point
 if [ "$(whoami)" != "root" ]; then
 	if ! which $SUDO >/dev/null; then
-		echo "ERROR: $0 is not run as root and $SUDO is not available" >&2
+		echo "ERROR: ${0} is not run as root and $SUDO is not available" >&2
 		exit 1
 	fi
 else
@@ -297,7 +297,7 @@ if [ "$ACTION" = "clean" ]; then
 	exit 0
 fi
 
-cd $(dirname $0)
+cd $(dirname ${0})
 mkdir -p ${TARGET_DIR}/$TARGET_SUBDIR
 
 # Don't quit on any errors now
