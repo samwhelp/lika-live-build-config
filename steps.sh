@@ -342,7 +342,7 @@ case "${IMAGE_TYPE}" in
 			profiles="lika offline"
 			auto_profiles="lika offline"
 		fi
-		debug "DISKTYPE: $DISKTYPE"
+		debug "DISKTYPE: ${DISKTYPE}"
 		debug "profiles: $profiles"
 		debug "auto_profiles: $auto_profiles"
 		[ -v KERNEL_PARAMS ] && debug "KERNEL_PARAMS: $KERNEL_PARAMS"
