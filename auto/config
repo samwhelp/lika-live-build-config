@@ -20,7 +20,7 @@ temp=""
 arch=$(dpkg --print-architecture)
 dist="bookworm"
 lb_opts=""
-while [ $# -gt 0 ]; do
+while [ ${#} -gt 0 ]; do
 	arg="${1}"
 	case "${arg}" in
 		-a|--arch|--architecture|--architectures)
