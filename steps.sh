@@ -49,9 +49,9 @@ live_image_name() {
 
 installer_image_name() {
 	if [ "${MASTER_VARIANT}" = "netinst" ]; then
-		echo "simple-cdd/images/lika-$MASTER_VERSION-${MASTER_ARCH}-NETINST-1.iso"
+		echo "simple-cdd/images/lika-${MASTER_VERSION}-${MASTER_ARCH}-NETINST-1.iso"
 	else
-		echo "simple-cdd/images/lika-$MASTER_VERSION-${MASTER_ARCH}-BD-1.iso"
+		echo "simple-cdd/images/lika-${MASTER_VERSION}-${MASTER_ARCH}-BD-1.iso"
 	fi
 }
 
@@ -65,15 +65,15 @@ target_image_name() {
 	fi
 	if [ "$IMAGE_TYPE" = "live" ]; then
 		if [ "${MASTER_VARIANT}" = "default" ]; then
-			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}${MASTER_NAME}-linux-$MASTER_VERSION-live-${MASTER_ARCH}.$IMAGE_EXT"
+			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}${MASTER_NAME}-linux-${MASTER_VERSION}-live-${MASTER_ARCH}.$IMAGE_EXT"
 		else
-			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}${MASTER_NAME}-linux-$MASTER_VERSION-live-${MASTER_VARIANT}-${MASTER_ARCH}.$IMAGE_EXT"
+			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}${MASTER_NAME}-linux-${MASTER_VERSION}-live-${MASTER_VARIANT}-${MASTER_ARCH}.$IMAGE_EXT"
 		fi
 	else
 		if [ "${MASTER_VARIANT}" = "default" ]; then
-			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}${MASTER_NAME}-linux-$MASTER_VERSION-installer-${MASTER_ARCH}.$IMAGE_EXT"
+			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}${MASTER_NAME}-linux-${MASTER_VERSION}-installer-${MASTER_ARCH}.$IMAGE_EXT"
 		else
-			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}${MASTER_NAME}-linux-$MASTER_VERSION-installer-${MASTER_VARIANT}-${MASTER_ARCH}.$IMAGE_EXT"
+			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}${MASTER_NAME}-linux-${MASTER_VERSION}-installer-${MASTER_VARIANT}-${MASTER_ARCH}.$IMAGE_EXT"
 		fi
 	fi
 }
@@ -207,10 +207,10 @@ elif [ "${MASTER_ARCH}" = "x86" ]; then
 fi
 debug "MASTER_ARCH: ${MASTER_ARCH}"
 
-if [ -z "$MASTER_VERSION" ]; then
+if [ -z "${MASTER_VERSION}" ]; then
 	MASTER_VERSION="$(default_version ${MASTER_DIST})"
 fi
-debug "MASTER_VERSION: $MASTER_VERSION"
+debug "MASTER_VERSION: ${MASTER_VERSION}"
 
 # Check parameters
 debug "HOST_ARCH: $HOST_ARCH"
@@ -320,7 +320,7 @@ case "$IMAGE_TYPE" in
 		export BASEDIR="$(pwd)/simple-cdd/debian-cd"
 		export ARCHES=${MASTER_ARCH}
 		export ARCH=${MASTER_ARCH}
-		export DEBVERSION=$MASTER_VERSION
+		export DEBVERSION=${MASTER_VERSION}
 		debug "BASEDIR: $BASEDIR"
 		debug "ARCHES: $ARCHES"
 		debug "ARCH: $ARCH"
