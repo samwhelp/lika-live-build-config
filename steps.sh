@@ -6,9 +6,9 @@ set -e
 set -o pipefail # Bashism
 
 # Lika's default values
-LIKA_DIST="bookworm"
-LIKA_VERSION=""
-LIKA_VARIANT="default"
+MASTER_DIST="bookworm"
+MASTER_VERSION=""
+MASTER_VARIANT="default"
 IMAGE_TYPE="live"
 TARGET_DIR="$(dirname $0)/images"
 TARGET_SUBDIR=""
@@ -29,21 +29,21 @@ image_name() {
 }
 
 live_image_name() {
-	case "$LIKA_ARCH" in
+	case "$MASTER_ARCH" in
 		i386|amd64|arm64)
-			echo "live-image-$LIKA_ARCH.hybrid.iso"
+			echo "live-image-$MASTER_ARCH.hybrid.iso"
 		;;
 		armel|armhf)
-			echo "live-image-$LIKA_ARCH.img"
+			echo "live-image-$MASTER_ARCH.img"
 		;;
 	esac
 }
 
 installer_image_name() {
-	if [ "$LIKA_VARIANT" = "netinst" ]; then
-		echo "simple-cdd/images/lika-$LIKA_VERSION-$LIKA_ARCH-NETINST-1.iso"
+	if [ "$MASTER_VARIANT" = "netinst" ]; then
+		echo "simple-cdd/images/lika-$MASTER_VERSION-$MASTER_ARCH-NETINST-1.iso"
 	else
-		echo "simple-cdd/images/lika-$LIKA_VERSION-$LIKA_ARCH-BD-1.iso"
+		echo "simple-cdd/images/lika-$MASTER_VERSION-$MASTER_ARCH-BD-1.iso"
 	fi
 }
 
@@ -56,16 +56,16 @@ target_image_name() {
 		IMAGE_EXT="img"
 	fi
 	if [ "$IMAGE_TYPE" = "live" ]; then
-		if [ "$LIKA_VARIANT" = "default" ]; then
-			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}lika-linux-$LIKA_VERSION-live-$LIKA_ARCH.$IMAGE_EXT"
+		if [ "$MASTER_VARIANT" = "default" ]; then
+			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}lika-linux-$MASTER_VERSION-live-$MASTER_ARCH.$IMAGE_EXT"
 		else
-			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}lika-linux-$LIKA_VERSION-live-$LIKA_VARIANT-$LIKA_ARCH.$IMAGE_EXT"
+			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}lika-linux-$MASTER_VERSION-live-$MASTER_VARIANT-$MASTER_ARCH.$IMAGE_EXT"
 		fi
 	else
-		if [ "$LIKA_VARIANT" = "default" ]; then
-			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}lika-linux-$LIKA_VERSION-installer-$LIKA_ARCH.$IMAGE_EXT"
+		if [ "$MASTER_VARIANT" = "default" ]; then
+			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}lika-linux-$MASTER_VERSION-installer-$MASTER_ARCH.$IMAGE_EXT"
 		else
-			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}lika-linux-$LIKA_VERSION-installer-$LIKA_VARIANT-$LIKA_ARCH.$IMAGE_EXT"
+			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}lika-linux-$MASTER_VERSION-installer-$MASTER_VARIANT-$MASTER_ARCH.$IMAGE_EXT"
 		fi
 	fi
 }
@@ -87,7 +87,7 @@ default_version() {
 }
 
 failure() {
-	echo "Build of $LIKA_DIST/$LIKA_VARIANT/$LIKA_ARCH $IMAGE_TYPE image failed (see build.log for details)" >&2
+	echo "Build of $MASTER_DIST/$MASTER_VARIANT/$MASTER_ARCH $IMAGE_TYPE image failed (see build.log for details)" >&2
 	echo "Log: $BUILD_LOG" >&2
 	exit 2
 }
@@ -170,17 +170,17 @@ temp=$(getopt -o "$BUILD_OPTS_SHORT" -l "$BUILD_OPTS_LONG,get-image-path" -- "$@
 eval set -- "$temp"
 while true; do
 	case "$1" in
-		-d|--distribution) LIKA_DIST="$2"; shift 2; ;;
+		-d|--distribution) MASTER_DIST="$2"; shift 2; ;;
 		-p|--proposed-updates) OPT_pu="1"; shift 1; ;;
-		-a|--arch) LIKA_ARCH="$2"; shift 2; ;;
+		-a|--arch) MASTER_ARCH="$2"; shift 2; ;;
 		-v|--verbose) VERBOSE="1"; shift 1; ;;
 		-D|--debug) DEBUG="1"; shift 1; ;;
 		-s|--salt) shift; ;;
 		-h|--help) print_help; ;;
 		--installer) IMAGE_TYPE="installer"; shift 1 ;;
 		--live) IMAGE_TYPE="live"; shift 1 ;;
-		--variant) LIKA_VARIANT="$2"; shift 2; ;;
-		--version) LIKA_VERSION="$2"; shift 2; ;;
+		--variant) MASTER_VARIANT="$2"; shift 2; ;;
+		--version) MASTER_VERSION="$2"; shift 2; ;;
 		--subdir) TARGET_SUBDIR="$2"; shift 2; ;;
 		--get-image-path) ACTION="get-image-path"; shift 1; ;;
 		--clean) ACTION="clean"; shift 1; ;;
@@ -191,42 +191,42 @@ while true; do
 done
 
 # Set default values
-LIKA_ARCH=${LIKA_ARCH:-$HOST_ARCH}
-if [ "$LIKA_ARCH" = "x64" ]; then
-	LIKA_ARCH="amd64"
-elif [ "$LIKA_ARCH" = "x86" ]; then
-	LIKA_ARCH="i386"
+MASTER_ARCH=${MASTER_ARCH:-$HOST_ARCH}
+if [ "$MASTER_ARCH" = "x64" ]; then
+	MASTER_ARCH="amd64"
+elif [ "$MASTER_ARCH" = "x86" ]; then
+	MASTER_ARCH="i386"
 fi
-debug "LIKA_ARCH: $LIKA_ARCH"
+debug "MASTER_ARCH: $MASTER_ARCH"
 
-if [ -z "$LIKA_VERSION" ]; then
-	LIKA_VERSION="$(default_version $LIKA_DIST)"
+if [ -z "$MASTER_VERSION" ]; then
+	MASTER_VERSION="$(default_version $MASTER_DIST)"
 fi
-debug "LIKA_VERSION: $LIKA_VERSION"
+debug "MASTER_VERSION: $MASTER_VERSION"
 
 # Check parameters
 debug "HOST_ARCH: $HOST_ARCH"
-if [ "$HOST_ARCH" != "$LIKA_ARCH" ] && [ "$IMAGE_TYPE" != "installer" ]; then
-	case "$HOST_ARCH/$LIKA_ARCH" in
+if [ "$HOST_ARCH" != "$MASTER_ARCH" ] && [ "$IMAGE_TYPE" != "installer" ]; then
+	case "$HOST_ARCH/$MASTER_ARCH" in
 		amd64/i386|i386/amd64)
 		;;
 		*)
-			echo "Can't build $LIKA_ARCH image on $HOST_ARCH system." >&2
+			echo "Can't build $MASTER_ARCH image on $HOST_ARCH system." >&2
 			exit 1
 		;;
 	esac
 fi
 
 # Build parameters for lb config
-LIKA_CONFIG_OPTS="--distribution $LIKA_DIST -- --variant $LIKA_VARIANT"
-CODENAME=$LIKA_DIST # for simple-cdd/debian-cd
+MASTER_CONFIG_OPTS="--distribution $MASTER_DIST -- --variant $MASTER_VARIANT"
+CODENAME=$MASTER_DIST # for simple-cdd/debian-cd
 if [ -n "$OPT_pu" ]; then
-	LIKA_CONFIG_OPTS="$LIKA_CONFIG_OPTS --proposed-updates"
-	LIKA_DIST="$LIKA_DIST+pu"
+	MASTER_CONFIG_OPTS="$MASTER_CONFIG_OPTS --proposed-updates"
+	MASTER_DIST="$MASTER_DIST+pu"
 fi
-debug "LIKA_CONFIG_OPTS: $LIKA_CONFIG_OPTS"
+debug "MASTER_CONFIG_OPTS: $MASTER_CONFIG_OPTS"
 debug "CODENAME: $CODENAME"
-debug "LIKA_DIST: $LIKA_DIST"
+debug "MASTER_DIST: $MASTER_DIST"
 
 # Set sane PATH (cron seems to lack /sbin/ dirs)
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
@@ -243,15 +243,15 @@ fi
 debug "IMAGE_TYPE: $IMAGE_TYPE"
 case "$IMAGE_TYPE" in
 	live)
-		if [ ! -d "$(dirname $0)/lika-config/variant-$LIKA_VARIANT" ]; then
-			echo "ERROR: Unknown variant of Lika live configuration: $LIKA_VARIANT" >&2
+		if [ ! -d "$(dirname $0)/lika-config/variant-$MASTER_VARIANT" ]; then
+			echo "ERROR: Unknown variant of Lika live configuration: $MASTER_VARIANT" >&2
 		fi
 		require_package live-build "1:20230502"
 		require_package debootstrap "1.0.97"
 	;;
 	installer)
-		if [ ! -d "$(dirname $0)/lika-config/installer-$LIKA_VARIANT" ]; then
-			echo "ERROR: Unknown variant of Lika installer configuration: $LIKA_VARIANT" >&2
+		if [ ! -d "$(dirname $0)/lika-config/installer-$MASTER_VARIANT" ]; then
+			echo "ERROR: Unknown variant of Lika installer configuration: $MASTER_VARIANT" >&2
 		fi
 		require_package debian-cd "3.2.1+lika1"
 		require_package simple-cdd "0.6.9"
@@ -273,12 +273,12 @@ else
 fi
 debug "SUDO: $SUDO"
 
-IMAGE_NAME="$(image_name $LIKA_ARCH)"
+IMAGE_NAME="$(image_name $MASTER_ARCH)"
 debug "IMAGE_NAME: $IMAGE_NAME"
 
 debug "ACTION: $ACTION"
 if [ "$ACTION" = "get-image-path" ]; then
-	echo $(target_image_name $LIKA_ARCH)
+	echo $(target_image_name $MASTER_ARCH)
 	exit 0
 fi
 
@@ -298,7 +298,7 @@ set +e
 case "$IMAGE_TYPE" in
 	live)
 		debug "Stage 1/2 - Config"
-		run_and_log lb config -a $LIKA_ARCH $LIKA_CONFIG_OPTS "$@"
+		run_and_log lb config -a $MASTER_ARCH $MASTER_CONFIG_OPTS "$@"
 		[ $? -eq 0 ] || failure
 
 		debug "Stage 2/2 - Build"
@@ -310,19 +310,19 @@ case "$IMAGE_TYPE" in
 	installer)
 		# Override some debian-cd environment variables
 		export BASEDIR="$(pwd)/simple-cdd/debian-cd"
-		export ARCHES=$LIKA_ARCH
-		export ARCH=$LIKA_ARCH
-		export DEBVERSION=$LIKA_VERSION
+		export ARCHES=$MASTER_ARCH
+		export ARCH=$MASTER_ARCH
+		export DEBVERSION=$MASTER_VERSION
 		debug "BASEDIR: $BASEDIR"
 		debug "ARCHES: $ARCHES"
 		debug "ARCH: $ARCH"
 		debug "DEBVERSION: $DEBVERSION"
 
-		if [ "$LIKA_VARIANT" = "netinst" ]; then
+		if [ "$MASTER_VARIANT" = "netinst" ]; then
 			export DISKTYPE="NETINST"
 			profiles="lika"
 			auto_profiles="lika"
-		elif [ "$LIKA_VARIANT" = "purple" ]; then
+		elif [ "$MASTER_VARIANT" = "purple" ]; then
 			export DISKTYPE="BD"
 			profiles="lika lika-purple offline"
 			auto_profiles="lika lika-purple offline"
@@ -363,7 +363,7 @@ case "$IMAGE_TYPE" in
 		[ $? -eq 0 ] || failure
 
 		# Configure the lika profile with the packages we want
-		grep -v '^#' lika-config/installer-$LIKA_VARIANT/packages \
+		grep -v '^#' lika-config/installer-$MASTER_VARIANT/packages \
 			> simple-cdd/profiles/lika.downloads
 		[ $? -eq 0 ] || failure
 
@@ -373,7 +373,7 @@ case "$IMAGE_TYPE" in
 
 		# Grub is the only supported bootloader on arm64
 		# so ensure it's on the iso for arm64.
-		if [ "$LIKA_ARCH" = "arm64" ]; then
+		if [ "$MASTER_ARCH" = "arm64" ]; then
 			debug "arm64 GRUB"
 			echo "grub-efi-arm64" >> simple-cdd/profiles/lika.downloads
 			[ $? -eq 0 ] || failure
@@ -403,7 +403,7 @@ esac
 set -e
 
 debug "Moving files"
-run_and_log mv -f $IMAGE_NAME $TARGET_DIR/$(target_image_name $LIKA_ARCH)
-run_and_log mv -f "$BUILD_LOG" $TARGET_DIR/$(target_build_log $LIKA_ARCH)
+run_and_log mv -f $IMAGE_NAME $TARGET_DIR/$(target_image_name $MASTER_ARCH)
+run_and_log mv -f "$BUILD_LOG" $TARGET_DIR/$(target_build_log $MASTER_ARCH)
 
-run_and_log echo -e "\n***\nGENERATED LIKA IMAGE: $TARGET_DIR/$(target_image_name $LIKA_ARCH)\n***"
+run_and_log echo -e "\n***\nGENERATED FINAL IMAGE: $TARGET_DIR/$(target_image_name $MASTER_ARCH)\n***"
