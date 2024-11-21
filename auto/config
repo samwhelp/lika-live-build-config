@@ -115,7 +115,7 @@ rm -fv config/archives/${dist}-proposed-updates.list.*
 cp -rT master-config/common config
 [ ! -d master-config/variant-${variant} ] || cp -rTL master-config/variant-${variant} config
 
-if [ -n "$enable_pu" ]; then
+if [ -n "${enable_pu}" ]; then
 	mkdir -p config/archives
 	echo "deb ${master_mirror} ${dist}-proposed-updates main contrib non-free non-free-firmware" \
 		> config/archives/${dist}-proposed-updates.list.chroot
