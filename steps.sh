@@ -124,16 +124,16 @@ clean () {
 	debug "Cleaning"
 
 	# Live
-	run_and_log $SUDO lb clean --purge
-	#run_and_log $SUDO umount -l $(pwd)/chroot/proc
-	#run_and_log $SUDO umount -l $(pwd)/chroot/dev/pts
-	#run_and_log $SUDO umount -l $(pwd)/chroot/sys
-	#run_and_log $SUDO rm -rf $(pwd)/chroot
-	#run_and_log $SUDO rm -rf $(pwd)/binary
+	run_and_log ${SUDO} lb clean --purge
+	#run_and_log ${SUDO} umount -l $(pwd)/chroot/proc
+	#run_and_log ${SUDO} umount -l $(pwd)/chroot/dev/pts
+	#run_and_log ${SUDO} umount -l $(pwd)/chroot/sys
+	#run_and_log ${SUDO} rm -rf $(pwd)/chroot
+	#run_and_log ${SUDO} rm -rf $(pwd)/binary
 
 	# Installer
-	run_and_log $SUDO rm -rf "$(pwd)/simple-cdd/tmp"
-	run_and_log $SUDO rm -rf "$(pwd)/simple-cdd/debian-cd"
+	run_and_log ${SUDO} rm -rf "$(pwd)/simple-cdd/tmp"
+	run_and_log ${SUDO} rm -rf "$(pwd)/simple-cdd/debian-cd"
 }
 
 print_help () {
@@ -274,14 +274,14 @@ esac
 
 # We need root rights at some point
 if [ "$(whoami)" != "root" ]; then
-	if ! which $SUDO >/dev/null; then
-		echo "ERROR: ${0} is not run as root and $SUDO is not available" >&2
+	if ! which ${SUDO} >/dev/null; then
+		echo "ERROR: ${0} is not run as root and ${SUDO} is not available" >&2
 		exit 1
 	fi
 else
 	SUDO="" # We're already root
 fi
-debug "SUDO: $SUDO"
+debug "SUDO: ${SUDO}"
 
 IMAGE_NAME="$(image_name ${MASTER_ARCH})"
 debug "IMAGE_NAME: ${IMAGE_NAME}"
@@ -312,7 +312,7 @@ case "${IMAGE_TYPE}" in
 		[ $? -eq 0 ] || failure
 
 		debug "Stage 2/2 - Build"
-		run_and_log $SUDO lb build
+		run_and_log ${SUDO} lb build
 		if [ $? -ne 0 ] || [ ! -e ${IMAGE_NAME} ]; then
 			failure
 		fi
