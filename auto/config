@@ -8,12 +8,12 @@ set -o pipefail # Bashism
 if [ -e .mirror ]; then
     master_mirror=$(cat .mirror)
 else
-    master_mirror=http://deb.debian.org/debian
+    master_mirror="http://deb.debian.org/debian"
 fi
 
 ### DO NOT EDIT THE REST OF THIS FILE ###
 
-public_master_mirror=http://deb.debian.org/debian
+public_master_mirror="http://deb.debian.org/debian"
 
 # Detect target architecture and filter args
 temp=""
