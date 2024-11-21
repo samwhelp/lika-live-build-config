@@ -48,7 +48,7 @@ live_image_name() {
 }
 
 installer_image_name() {
-	if [ "$MASTER_VARIANT" = "netinst" ]; then
+	if [ "${MASTER_VARIANT}" = "netinst" ]; then
 		echo "simple-cdd/images/lika-$MASTER_VERSION-${MASTER_ARCH}-NETINST-1.iso"
 	else
 		echo "simple-cdd/images/lika-$MASTER_VERSION-${MASTER_ARCH}-BD-1.iso"
@@ -64,16 +64,16 @@ target_image_name() {
 		IMAGE_EXT="img"
 	fi
 	if [ "$IMAGE_TYPE" = "live" ]; then
-		if [ "$MASTER_VARIANT" = "default" ]; then
+		if [ "${MASTER_VARIANT}" = "default" ]; then
 			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}${MASTER_NAME}-linux-$MASTER_VERSION-live-${MASTER_ARCH}.$IMAGE_EXT"
 		else
-			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}${MASTER_NAME}-linux-$MASTER_VERSION-live-$MASTER_VARIANT-${MASTER_ARCH}.$IMAGE_EXT"
+			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}${MASTER_NAME}-linux-$MASTER_VERSION-live-${MASTER_VARIANT}-${MASTER_ARCH}.$IMAGE_EXT"
 		fi
 	else
-		if [ "$MASTER_VARIANT" = "default" ]; then
+		if [ "${MASTER_VARIANT}" = "default" ]; then
 			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}${MASTER_NAME}-linux-$MASTER_VERSION-installer-${MASTER_ARCH}.$IMAGE_EXT"
 		else
-			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}${MASTER_NAME}-linux-$MASTER_VERSION-installer-$MASTER_VARIANT-${MASTER_ARCH}.$IMAGE_EXT"
+			echo "${TARGET_SUBDIR:+$TARGET_SUBDIR/}${MASTER_NAME}-linux-$MASTER_VERSION-installer-${MASTER_VARIANT}-${MASTER_ARCH}.$IMAGE_EXT"
 		fi
 	fi
 }
@@ -95,7 +95,7 @@ default_version() {
 }
 
 failure() {
-	echo "Build of ${MASTER_DIST}/$MASTER_VARIANT/${MASTER_ARCH} $IMAGE_TYPE image failed (see build.log for details)" >&2
+	echo "Build of ${MASTER_DIST}/${MASTER_VARIANT}/${MASTER_ARCH} $IMAGE_TYPE image failed (see build.log for details)" >&2
 	echo "Log: $BUILD_LOG" >&2
 	exit 2
 }
@@ -226,7 +226,7 @@ if [ "$HOST_ARCH" != "${MASTER_ARCH}" ] && [ "$IMAGE_TYPE" != "installer" ]; the
 fi
 
 # Build parameters for lb config
-MASTER_CONFIG_OPTS="--distribution ${MASTER_DIST} -- --variant $MASTER_VARIANT"
+MASTER_CONFIG_OPTS="--distribution ${MASTER_DIST} -- --variant ${MASTER_VARIANT}"
 CODENAME=${MASTER_DIST} # for simple-cdd/debian-cd
 if [ -n "$OPT_pu" ]; then
 	MASTER_CONFIG_OPTS="$MASTER_CONFIG_OPTS --proposed-updates"
@@ -251,15 +251,15 @@ fi
 debug "IMAGE_TYPE: $IMAGE_TYPE"
 case "$IMAGE_TYPE" in
 	live)
-		if [ ! -d "$(dirname $0)/lika-config/variant-$MASTER_VARIANT" ]; then
-			echo "ERROR: Unknown variant of Lika live configuration: $MASTER_VARIANT" >&2
+		if [ ! -d "$(dirname $0)/lika-config/variant-${MASTER_VARIANT}" ]; then
+			echo "ERROR: Unknown variant of Lika live configuration: ${MASTER_VARIANT}" >&2
 		fi
 		require_package live-build "1:20230502"
 		require_package debootstrap "1.0.97"
 	;;
 	installer)
-		if [ ! -d "$(dirname $0)/lika-config/installer-$MASTER_VARIANT" ]; then
-			echo "ERROR: Unknown variant of Lika installer configuration: $MASTER_VARIANT" >&2
+		if [ ! -d "$(dirname $0)/lika-config/installer-${MASTER_VARIANT}" ]; then
+			echo "ERROR: Unknown variant of Lika installer configuration: ${MASTER_VARIANT}" >&2
 		fi
 		require_package debian-cd "3.2.1"
 		require_package simple-cdd "0.6.9"
@@ -326,11 +326,11 @@ case "$IMAGE_TYPE" in
 		debug "ARCH: $ARCH"
 		debug "DEBVERSION: $DEBVERSION"
 
-		if [ "$MASTER_VARIANT" = "netinst" ]; then
+		if [ "${MASTER_VARIANT}" = "netinst" ]; then
 			export DISKTYPE="NETINST"
 			profiles="lika"
 			auto_profiles="lika"
-		elif [ "$MASTER_VARIANT" = "purple" ]; then
+		elif [ "${MASTER_VARIANT}" = "purple" ]; then
 			export DISKTYPE="BD"
 			profiles="lika lika-purple offline"
 			auto_profiles="lika lika-purple offline"
@@ -371,7 +371,7 @@ case "$IMAGE_TYPE" in
 		[ $? -eq 0 ] || failure
 
 		# Configure the lika profile with the packages we want
-		grep -v '^#' lika-config/installer-$MASTER_VARIANT/packages \
+		grep -v '^#' lika-config/installer-${MASTER_VARIANT}/packages \
 			> simple-cdd/profiles/lika.downloads
 		[ $? -eq 0 ] || failure
 
