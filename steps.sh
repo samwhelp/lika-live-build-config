@@ -153,16 +153,16 @@ require_package() {
 	local required_version=${2}
 	local pkg_version=
 
-	pkg_version=$(dpkg-query -f '${Version}' -W $pkg || true)
+	pkg_version=$(dpkg-query -f '${Version}' -W ${pkg} || true)
 	if [ -z "${pkg_version}" ]; then
-		echo "ERROR: You need $pkg, but it is not installed" >&2
+		echo "ERROR: You need ${pkg}, but it is not installed" >&2
 		exit 1
 	fi
 	if dpkg --compare-versions "${pkg_version}" lt "$required_version"; then
-		echo "ERROR: You need $pkg (>= $required_version), you have ${pkg_version}" >&2
+		echo "ERROR: You need ${pkg} (>= $required_version), you have ${pkg_version}" >&2
 		exit 1
 	fi
-	debug "$pkg version: ${pkg_version}"
+	debug "${pkg} version: ${pkg_version}"
 }
 
 # Allowed command line options
