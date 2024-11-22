@@ -39,6 +39,16 @@
 
 
 
+## Lika OS / Live System
+
+| Account  | Value  |
+| -------- | ------ |
+| Username | `lika` |
+| Password | `live` |
+
+
+
+
 ## Link
 
 | Link |
