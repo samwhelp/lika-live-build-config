@@ -1,0 +1,50 @@
+
+
+##
+## # Main / Openbox
+##
+
+
+
+
+##
+## ## Link
+##
+## * Debian Wiki / [Openbox](https://wiki.debian.org/Openbox)
+## * Debian Wiki / [DesktopEnvironment](https://wiki.debian.org/DesktopEnvironment)
+##
+
+
+
+
+##
+## ## Package / Desktop Environment / Openbox
+##
+
+openbox
+obconf
+obmenu
+
+picom
+
+feh
+
+tint2
+
+rofi
+
+#plank
+
+
+
+
+##
+## ## Package / Display Manager / lightdm
+##
+
+accountsservice
+
+light-locker
+lightdm
+lightdm-gtk-greeter
+lightdm-gtk-greeter-settings
