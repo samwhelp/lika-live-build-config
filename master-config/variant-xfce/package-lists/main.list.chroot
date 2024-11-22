@@ -1,23 +1,38 @@
-# Live image
-# You always want these:
-#lika-linux-core
-#lika-desktop-live
-
-# Metapackages
-# You can customize the set of Lika metapackages (groups of tools) to install
-# For the complete list see: https://tools.lika.org/lika-metapackages
-#lika-linux-core
-#lika-tools-top10
-#lika-linux-default
-#lika-linux-large
-#lika-linux-everything
 
 
-# Graphical desktop
-#lika-desktop-xfce
+##
+## # Main
+##
+
+
+
+
+##
+## ## Package / Desktop Environment / Xfce
+##
+
 xfce4
 xfce4-goodies
 
+#xfce4-power-manager
+#xfce4-terminal
+#mousepad
 
-# Lika applications
-#<package>
+#xarchiver
+
+#pavucontrol
+#pulseaudio
+
+
+
+
+##
+## ## Package / Display Manager / lightdm
+##
+
+accountsservice
+
+#light-locker
+#lightdm
+#lightdm-gtk-greeter
+#lightdm-gtk-greeter-settings
