@@ -8,11 +8,20 @@
 
 
 ##
+## ## Link
+##
+## * Debian Wiki / [Xfce](https://wiki.debian.org/Xfce)
+##
+
+
+
+
+##
 ## ## Package / Desktop Environment / Xfce
 ##
 
 xfce4
-#xfce4-goodies
+xfce4-goodies
 
 #xfce4-power-manager
 #xfce4-terminal
