@@ -265,15 +265,18 @@ case "${IMAGE_TYPE}" in
 	live)
 		if [ ! -d "$(dirname ${0})/master-config/variant-${MASTER_VARIANT}" ]; then
 			echo "ERROR: Unknown variant of Lika live configuration: ${MASTER_VARIANT}" >&2
-			exit 0
+			exit 1
 		fi
 		require_package live-build "1:20230502"
 		require_package debootstrap "1.0.97"
 	;;
 	installer)
+		## TODO:
+		echo "TODO: Unsupported IMAGE_TYPE=installer now."
+		exit 1
 		if [ ! -d "$(dirname ${0})/master-config/installer-${MASTER_VARIANT}" ]; then
 			echo "ERROR: Unknown variant of Lika installer configuration: ${MASTER_VARIANT}" >&2
-			exit 0
+			exit 1
 		fi
 		require_package debian-cd "3.2.1"
 		require_package simple-cdd "0.6.9"
