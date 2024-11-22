@@ -265,6 +265,7 @@ case "${IMAGE_TYPE}" in
 	live)
 		if [ ! -d "$(dirname ${0})/master-config/variant-${MASTER_VARIANT}" ]; then
 			echo "ERROR: Unknown variant of Lika live configuration: ${MASTER_VARIANT}" >&2
+			exit 0
 		fi
 		require_package live-build "1:20230502"
 		require_package debootstrap "1.0.97"
