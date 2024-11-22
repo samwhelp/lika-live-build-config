@@ -1,19 +1,48 @@
-# Live image
-# You always want these:
-#lika-linux-core
-#lika-desktop-live
 
-# Metapackages
-# You can customize the set of Lika metapackages (groups of tools) to install
-# For the complete list see: https://tools.lika.org/lika-metapackages
-#lika-linux-core
-#lika-tools-top10
-lika-linux-default
-#lika-linux-large
-#lika-linux-everything
 
-# Graphical desktop
-#lika-desktop-i3
+##
+## # Main / I3
+##
 
-# Lika applications
-#<package>
+
+
+
+##
+## ## Link
+##
+## * Debian Wiki / [i3](https://wiki.debian.org/i3)
+## * Debian Wiki / [DesktopEnvironment](https://wiki.debian.org/DesktopEnvironment)
+##
+
+
+
+
+##
+## ## Package / Desktop Environment / I3
+##
+
+i3
+
+picom
+
+feh
+
+tint2
+
+rofi
+
+#plank
+
+
+
+
+##
+## ## Package / Display Manager / lightdm
+##
+
+accountsservice
+
+light-locker
+lightdm
+lightdm-gtk-greeter
+lightdm-gtk-greeter-settings
