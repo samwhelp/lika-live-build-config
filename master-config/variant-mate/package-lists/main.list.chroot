@@ -1,24 +1,68 @@
-# Live image
-# You always want these:
-#lika-linux-core
-#lika-desktop-live
 
-# Metapackages
-# You can customize the set of Lika metapackages (groups of tools) to install
-# For the complete list see: https://tools.lika.org/lika-metapackages
-#lika-linux-core
-#lika-tools-top10
-#lika-linux-default
-#lika-linux-large
-#lika-linux-everything
 
-# Graphical desktop
-#lika-desktop-mate
-# | NOTE: With Lika 1.x, the mate desktop requires other changes to the live config.
-# | See ~ https://web.archive.org/web/20150721230745/http://docs.lika.org/live-build/customize-the-lika-desktop-environment
-#if DISTRIBUTION moto
-mate-archive-keyring
-#endif
+##
+## # Main / Mate
+##
 
-# Lika applications
-#<package>
+
+
+
+##
+## ## Link
+##
+## * Debian Wiki / [MATE](https://wiki.debian.org/MATE)
+##
+
+
+
+
+##
+## ## Package / Desktop Environment / Mate
+##
+
+
+
+
+##
+## ### MATE (full + extras)
+##
+## > This will install the complete MATE desktop including a few extras.
+##
+
+#mate-desktop-environment-extras
+
+
+
+
+##
+## ### MATE (full)
+##
+## > This will install the complete MATE desktop environment.
+##
+
+mate-desktop-environment
+
+
+##
+## ### MATE (core only)
+##
+## > This is a minimalist MATE installation
+## > (You have to install all end-user applications later).
+## > Above packages depend on this one.
+##
+
+# mate-desktop-environment-core
+
+
+
+
+##
+## ## Package / Display Manager / lightdm
+##
+
+#accountsservice
+
+#light-locker
+#lightdm
+#lightdm-gtk-greeter
+#lightdm-gtk-greeter-settings
