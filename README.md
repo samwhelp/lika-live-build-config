@@ -46,6 +46,12 @@
 | Username | `lika` |
 | Password | `live` |
 
+> run to remove password
+
+``` sh
+sudo passwd -d $(whoami)
+```
+
 
 
 
