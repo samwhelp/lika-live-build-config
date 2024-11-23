@@ -2,13 +2,33 @@
 
 ## Home
 
-> This project lika-live-build-config is building skeleton.
+
+> lika-live-build-config
+
+
+
+
+## Subject
+
+* [Project](#project)
+* [Lika OS / Live System](#lika-os--live-system)
+* [Link](#link)
+
+
+
+
+## Project
+
+> This project `lika-live-build-config` is building skeleton.
 
 | Link | GitHub |
 | ---- | ------ |
 | [lika-live-build-config](https://samwhelp.github.io/lika-live-build-config/) | [GitHub](https://github.com/samwhelp/lika-live-build-config) |
 
-> Please using another project as following to start build process.
+> Please using `another project as following` to start build process.
+
+
+### Prototype
 
 | Link | GitHub |
 | ---- | ------ |
@@ -16,6 +36,8 @@
 | [lika-live-build-config-remix](https://samwhelp.github.io/lika-live-build-config-remix/) | [GitHub](https://github.com/samwhelp/lika-live-build-config-remix) |
 | [lika-live-build-config-enhance](https://samwhelp.github.io/lika-live-build-config-enhance/) | [GitHub](https://github.com/samwhelp/lika-live-build-config-enhance) |
 
+
+### Respin
 
 | Link | GitHub |
 | ---- | ------ |
@@ -28,13 +50,7 @@
 | [lika-live-build-respin-openbox](https://samwhelp.github.io/lika-live-build-respin-openbox/) | [GitHub](https://github.com/samwhelp/lika-live-build-respin-openbox) |
 | [lika-live-build-respin-bspwm](https://samwhelp.github.io/lika-live-build-respin-bspwm/) | [GitHub](https://github.com/samwhelp/lika-live-build-respin-bspwm) |
 | [lika-live-build-respin-i3](https://samwhelp.github.io/lika-live-build-respin-i3/) | [GitHub](https://github.com/samwhelp/lika-live-build-respin-i3) |
-
-
-
-
-## Subject
-
-* [Link](#link)
+| [lika-live-build-respin-herbstluftwm](https://samwhelp.github.io/lika-live-build-respin-herbstluftwm/) | [GitHub](https://github.com/samwhelp/lika-live-build-respin-herbstluftwm) |
 
 
 
@@ -46,7 +62,7 @@
 | Username | `lika` |
 | Password | `live` |
 
-> run to remove password
+> If you want to remove password, just run
 
 ``` sh
 sudo passwd -d $(whoami)
