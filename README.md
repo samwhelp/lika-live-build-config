@@ -25,7 +25,7 @@
 > Please using `another project as following` to start build process.
 
 
-### Develop
+### Prototype
 
 | Link | GitHub |
 | ---- | ------ |
