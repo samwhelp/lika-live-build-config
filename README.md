@@ -47,7 +47,7 @@
 | Username | `lika` |
 | Password | `live` |
 
-> run to remove password
+> If you want to remove password, just run
 
 ``` sh
 sudo passwd -d $(whoami)
