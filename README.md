@@ -2,6 +2,8 @@
 
 # lika-live-build-config
 
+> [lika-live-build-config](https://samwhelp.github.io/lika-live-build-config/)
+
 
 
 
@@ -9,6 +11,7 @@
 
 * [Project](#project)
 * [Lika OS / Live System](#lika-os--live-system)
+* [Boot ISO By GRUB](#boot-iso-bygrub)
 * [Link](#link)
 
 
@@ -63,6 +66,40 @@
 
 ``` sh
 sudo passwd -d $(whoami)
+```
+
+
+
+
+## Boot ISO By GRUB
+
+> Put iso file to `/opt/iso/lika/latest/lika.iso`
+
+> Create file `/boot/grub/custom.cfg`, the content is as follows
+
+``` sh
+menuentry "Lika OS" --class Debian {
+	set iso_file="/opt/iso/lika/latest/lika.iso"
+	search --set=iso_partition --no-floppy --file $iso_file
+	probe --set=iso_partition_uuid --fs-uuid $iso_partition
+	set img_dev="/dev/disk/by-uuid/$iso_partition_uuid"
+	loopback loop ($iso_partition)$iso_file
+
+	set extra_option=""
+	#set extra_option="components quiet splash"
+
+	set locale_option=""
+	#set locale_option="locales=en_US.UTF-8"
+	#set locale_option="locales=zh_TW.UTF-8"
+	#set locale_option="locales=zh_CN.UTF-8"
+	#set locale_option="locales=zh_HK.UTF-8"
+	#set locale_option="locales=ja_JP.UTF-8"
+	#set locale_option="locales=ko_KR.UTF-8"
+
+	set boot_option="${locale_option} ${extra_option}"
+	linux	(loop)/live/vmlinuz boot=live buuid=${iso_partition_uuid} findiso=${iso_file} ${boot_option}
+	initrd	(loop)/live/initrd.img
+}
 ```
 
 
