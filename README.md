@@ -10,8 +10,8 @@
 ## Subject
 
 * [Project](#project)
+* [Boot ISO By GRUB](#boot-iso-by-grub)
 * [Lika OS / Live System](#lika-os--live-system)
-* [Boot ISO By GRUB](#boot-iso-bygrub)
 * [Link](#link)
 
 
@@ -55,22 +55,6 @@
 
 
 
-## Lika OS / Live System
-
-| Account  | Value  |
-| -------- | ------ |
-| Username | `lika` |
-| Password | `live` |
-
-> If you want to remove password, just run
-
-``` sh
-sudo passwd -d $(whoami)
-```
-
-
-
-
 ## Boot ISO By GRUB
 
 > Put iso file to `/opt/iso/lika/latest/lika.iso`
@@ -100,6 +84,22 @@ menuentry "Lika OS" --class Debian {
 	linux	(loop)/live/vmlinuz boot=live buuid=${iso_partition_uuid} findiso=${iso_file} ${boot_option}
 	initrd	(loop)/live/initrd.img
 }
+```
+
+
+
+
+## Lika OS / Live System
+
+| Account  | Value  |
+| -------- | ------ |
+| Username | `lika` |
+| Password | `live` |
+
+> If you want to remove password, just run
+
+``` sh
+sudo passwd -d $(whoami)
 ```
 
 
