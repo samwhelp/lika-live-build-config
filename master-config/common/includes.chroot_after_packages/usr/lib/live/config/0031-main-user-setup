@@ -70,7 +70,14 @@ fi
 ##
 ## ## Change Live User Password
 ##
-## * https://salsa.debian.org/live-team/live-config/-/blob/master/components/0030-user-setup?ref_type=heads#L70
+## * [/usr/lib/live/config](https://salsa.debian.org/live-team/live-config/-/blob/master/components/0030-user-setup?ref_type=heads#L70-L73)
+##
+## ``` sh
+## # Default password is: live
+## # passwords can be generated with 'echo "live" | mkpasswd -s',
+## # a blank password is 'U6aMy0wojraho'.
+## _PASSWORD="8Ab05sVQ4LLps"
+## ```
 ##
 
 ##
