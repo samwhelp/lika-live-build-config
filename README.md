@@ -89,10 +89,6 @@ menuentry "Lika OS" --class Debian {
 
 
 
-
-
-
-
 ## Lika OS / Live System
 
 | Account  | Value  |
