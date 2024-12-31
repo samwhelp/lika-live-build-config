@@ -89,18 +89,34 @@ menuentry "Lika OS" --class Debian {
 
 
 
+
+
+
+
 ## Lika OS / Live System
 
 | Account  | Value  |
 | -------- | ------ |
 | Username | `lika` |
-| Password | `live` |
+| Password | `lika` |
 
 > If you want to remove password, just run
 
 ``` sh
 sudo passwd -d $(whoami)
 ```
+
+
+> Refer: live-config components
+
+| live-config |
+| ---------------------- |
+| [/etc/live/config.conf.d/user.conf](https://github.com/samwhelp/lika-live-build-config/blob/main/master-config/common/includes.chroot_before_packages/etc/live/config.conf.d/user.conf) |
+
+| live-config / components |
+| ------------------------ |
+| [/usr/lib/live/config/0030-user-setup](https://salsa.debian.org/live-team/live-config/-/blob/master/components/0030-user-setup)
+| [/usr/lib/live/config/5010-user-change-password](https://github.com/samwhelp/lika-live-build-config/blob/main/master-config/common/includes.chroot_before_packages/usr/lib/live/config/5010-user-change-password) |
 
 
 
