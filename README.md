@@ -141,6 +141,7 @@ sudo passwd -d $(whoami)
 
 | live-config / components |
 | ------------------------ |
+| [/usr/lib/live/config/0030-live-debconfig_passwd](https://salsa.debian.org/live-team/live-config/-/blob/master/components/0030-live-debconfig_passwd)
 | [/usr/lib/live/config/0030-user-setup](https://salsa.debian.org/live-team/live-config/-/blob/master/components/0030-user-setup)
 | [/usr/lib/live/config/5010-user-change-password](./master-config/common/includes.chroot_before_packages/usr/lib/live/config/5010-user-change-password) |
 
