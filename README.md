@@ -133,7 +133,7 @@ sudo passwd -d $(whoami)
 ```
 
 
-> Refer: live-config components
+> Refer: live-config / components
 
 | live-config |
 | ---------------------- |
