@@ -1,5 +1,9 @@
 #!/bin/sh
 
+echo "TODO: lika-live-build-config/master-config/variant-i3/hooks/dotfiles.chroot"
+
+exit 0
+
 # Copy dotfiles to /etc/skel/:
 rsync -a /usr/share/i3-dotfiles/etc/skel/ /etc/skel/
 
