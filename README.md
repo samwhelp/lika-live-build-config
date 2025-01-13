@@ -28,6 +28,12 @@
 > Please using `another project as following` to start build process.
 
 
+* [Prototype](#prototype)
+* [Respin](#respin)
+* [Recipe](#recipe)
+* [Flagship](#flagship)
+
+
 ### Prototype
 
 | Link | GitHub |
@@ -81,6 +87,20 @@
 | Link | GitHub |
 | ---- | ------ |
 | [lika-live-build-recipe-mate-theme-vimix](https://samwhelp.github.io/lika-live-build-recipe-mate-theme-vimix/) | [GitHub](https://github.com/samwhelp/lika-live-build-recipe-mate-theme-vimix) |
+
+
+### Flagship
+
+| Link | GitHub |
+| ---- | ------ |
+| [lika-live-build-flagship-xfce-theme-vimix](https://samwhelp.github.io/lika-live-build-flagship-xfce-theme-vimix/) | [GitHub](https://github.com/samwhelp/lika-live-build-flagship-xfce-theme-vimix) |
+| [lika-live-build-flagship-xfce-theme-gruvbox](https://samwhelp.github.io/lika-live-build-flagship-xfce-theme-gruvbox/) | [GitHub](https://github.com/samwhelp/lika-live-build-flagship-xfce-theme-gruvbox) |
+
+
+| Link | GitHub |
+| ---- | ------ |
+| [lika-live-build-flagship-kde-theme-vimix](https://samwhelp.github.io/lika-live-build-recipe-kde-theme-vimix/) | [GitHub](https://github.com/samwhelp/lika-live-build-recipe-kde-theme-vimix) |
+| [lika-live-build-flagship-kde-theme-layan](https://samwhelp.github.io/lika-live-build-flagship-kde-theme-layan/) | [GitHub](https://github.com/samwhelp/lika-live-build-flagship-kde-theme-layan) |
 
 
 
