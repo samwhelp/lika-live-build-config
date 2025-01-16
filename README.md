@@ -63,6 +63,7 @@
 | ---- | ------ |
 | [lika-live-build-respin-lxqt-with-kwin](https://samwhelp.github.io/lika-live-build-respin-lxqt-with-kwin/) | [GitHub](https://github.com/samwhelp/lika-live-build-respin-lxqt-with-kwin) |
 | [lika-live-build-respin-xfce-with-kwin](https://samwhelp.github.io/lika-live-build-respin-xfce-with-kwin/) | [GitHub](https://github.com/samwhelp/lika-live-build-respin-xfce-with-kwin) |
+| [lika-live-build-respin-mate-with-compiz](https://samwhelp.github.io/lika-live-build-respin-mate-with-compiz/) | [GitHub](https://github.com/samwhelp/lika-live-build-respin-mate-with-compiz) |
 
 
 ### Recipe
