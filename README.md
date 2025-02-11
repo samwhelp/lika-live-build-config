@@ -169,6 +169,9 @@ sudo passwd -d $(whoami)
 | [/usr/lib/live/config/5010-user-change-password](./master-config/common/includes.chroot_before_packages/usr/lib/live/config/5010-user-change-password) |
 
 
+> See Also: [user-change-password](https://github.com/samwhelp/note-about-debian-live-build/tree/gh-pages/_demo/project/user-change-password)
+
+
 
 
 ## Link
