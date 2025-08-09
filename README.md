@@ -5,6 +5,9 @@
 > [lika-live-build-config](https://samwhelp.github.io/lika-live-build-config/)
 
 
+> Currently based on [Debian 13 Trixie](https://samwhelp.github.io/note-about-debian/read/link/release/debian-13-trixie.html)
+
+
 
 
 ## Subject
